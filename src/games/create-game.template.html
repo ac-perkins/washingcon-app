@@ -1,0 +1,9 @@
+<form class='create-event' ng-submit='create.addEvent()'>
+  <label>Game name:</label><input type='text' class='form-control' ng-model='create.newEvent.name' required placeholder='Name'>
+  <label>Location:</label><input type='text' class='form-control' ng-model='create.newEvent.location' required placeholder='Location'>
+  <label>Date:</label><input type="text" class='form-control' ng-model='create.newEvent.date' required placeholder="mm/dd/yyyy">
+  <button>Create new Events</button>
+</form>
+
+
+<p class='error-msg' ng-show='create.errorMessage'>{{create.errorMessage}}</p>
