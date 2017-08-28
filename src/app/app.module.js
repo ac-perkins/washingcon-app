@@ -29,6 +29,12 @@
       templateUrl: 'games/create-game.template.html',
       controller: 'CreateGameController',
       controllerAs: 'create'
+    })
+    .state('viewGame', {
+      url: '/game/:id',
+      templateUrl: 'games/game.template.html',
+      controller: 'GameController',
+      controllerAs: 'gc'
     });
     // .state('editAllEvents', {
     //   url: '/event/edit',

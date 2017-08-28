@@ -26,6 +26,7 @@
       this.addEvent = function addEvent() {
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
+            console.log(that.newEvent);
             console.log('in promise', ref);
             // $state.go('editAllEvents');
           })
