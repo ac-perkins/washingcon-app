@@ -15,8 +15,8 @@
     .state('home', {
       url: '/',
       templateUrl: 'home/home.template.html',
-      // controller: 'HomeController',
-      // controllerAs: 'home'
+      controller: 'HomeController',
+      controllerAs: 'home'
     })
     // .state('events', {
     //   url: '/events/:id',
@@ -92,12 +92,13 @@
     function EventsService($q, $firebaseObject, $firebaseArray) {
 
       // var events = new Firebase('https://incandescent-heat-8431.firebaseio.com/events');
-      var database = firebase.database().ref();
+      var database = firebase.database().ref().child("games");
       console.log(database);
       var allEvents = [];
       var singleGameEvents = [];
 
       return {
+        database: database,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
         getSingleGameEvents: getSingleGameEvents,
@@ -106,15 +107,24 @@
         deleteEventObject: deleteEventObject
       };
 
-      function createEvent(newEvent) {
-        return $firebaseArray(events).$add(newEvent)
+      function createEvent(newGame) {
+        return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
-            var id = ref.key();
+            var id = ref.key;
             console.log("added record with id " + id);
             return id;
           });
       }
+
+      // function getAllEvents() {
+      //   return $firebaseArray(database).$loaded()
+      //     .then(function(x) {
+      //       allEvents = x;
+      //       console.log(allEvents);
+      //       return allEvents;
+      //     });
+      // }
 
       function getAllEvents() {
         return $firebaseArray(database).$loaded()
@@ -176,6 +186,36 @@
       }
 
     }
+
+})();
+;(function() {
+    'use strict';
+
+    angular
+      .module('washingcon-app')
+      .controller('HomeController', HomeController);
+
+      HomeController.$inject = ['$scope', '$firebaseArray', 'EventsService'];
+      function HomeController($scope, $firebaseArray, EventsService) {
+
+        var that = this;
+        this.upcomingEvents = null;
+        this.errorMessage = '';
+        this.ref = EventsService.database;
+        console.log(this.games);
+        this.games = $firebaseArray(this.ref);
+
+        EventsService.getAllEvents()
+          .then(function(events) {
+            that.upcomingEvents = events;
+          })
+          .catch(function (err) {
+            console.log('catch error', err);
+            that.errorMessage = "The server is not responding. Please try again shortly.";
+          });
+
+
+      }
 
 })();
 

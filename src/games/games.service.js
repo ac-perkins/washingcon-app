@@ -9,12 +9,13 @@
     function EventsService($q, $firebaseObject, $firebaseArray) {
 
       // var events = new Firebase('https://incandescent-heat-8431.firebaseio.com/events');
-      var database = firebase.database().ref();
+      var database = firebase.database().ref().child("games");
       console.log(database);
       var allEvents = [];
       var singleGameEvents = [];
 
       return {
+        database: database,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
         getSingleGameEvents: getSingleGameEvents,
@@ -23,15 +24,24 @@
         deleteEventObject: deleteEventObject
       };
 
-      function createEvent(newEvent) {
-        return $firebaseArray(events).$add(newEvent)
+      function createEvent(newGame) {
+        return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
-            var id = ref.key();
+            var id = ref.key;
             console.log("added record with id " + id);
             return id;
           });
       }
+
+      // function getAllEvents() {
+      //   return $firebaseArray(database).$loaded()
+      //     .then(function(x) {
+      //       allEvents = x;
+      //       console.log(allEvents);
+      //       return allEvents;
+      //     });
+      // }
 
       function getAllEvents() {
         return $firebaseArray(database).$loaded()

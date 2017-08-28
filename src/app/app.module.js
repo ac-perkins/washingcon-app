@@ -15,8 +15,8 @@
     .state('home', {
       url: '/',
       templateUrl: 'home/home.template.html',
-      // controller: 'HomeController',
-      // controllerAs: 'home'
+      controller: 'HomeController',
+      controllerAs: 'home'
     })
     // .state('events', {
     //   url: '/events/:id',
