@@ -1,6 +1,7 @@
-home template
+<p>home template</p>
+<button ui-sref='createGame'>Create Game</button>
 <ul>
-  <section ng-repeat='game in home.games'>
+  <section class="game-list" ng-repeat='game in home.games' ui-sref='viewGame({ id: game.$id })'>
     <li>{{game.name}}</li>
     <li>{{game.location}}</li>
     <li>{{game.date}}</li>

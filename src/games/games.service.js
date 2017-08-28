@@ -94,8 +94,8 @@
       }
 
       function deleteEventObject(eventId) {
-        var eventObj = new Firebase('https://incandescent-heat-8431.firebaseio.com/events/' + eventId);
-        return $firebaseObject(eventObj).$remove()
+        var gameObj = firebase.database().ref().child("games/" + eventId);
+        return $firebaseObject(gameObj).$remove()
           .then(function(ref) {
             console.log(ref);
             return ref;

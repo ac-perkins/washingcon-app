@@ -46,6 +46,7 @@
           return EventsService.deleteEventObject($stateParams.id)
             .then(function(ref) {
               console.log('in deleteEvent promise', ref);
+              $state.go('home');
             })
             .catch(function(err) {
               console.log('catch error', err);

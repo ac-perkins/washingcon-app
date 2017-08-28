@@ -1,8 +1,11 @@
-game template
+<p>game template</p>
 <ul>
   <section>
     <li>Game: {{gc.game.name}}</li>
     <li>Location: {{gc.game.location}}</li>
     <li>When: {{gc.game.date}}</li>
+    <li>Notes: {{gc.game.notes}}</li>
   </section>
 </ul>
+<button>Edit Game</button>
+<button ng-click='gc.deleteEvent()'>Delete Game</button>

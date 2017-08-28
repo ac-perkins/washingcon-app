@@ -51,6 +51,36 @@
 
     angular
       .module('washingcon-app')
+      .controller('HomeController', HomeController);
+
+      HomeController.$inject = ['$scope', '$firebaseArray', 'EventsService'];
+      function HomeController($scope, $firebaseArray, EventsService) {
+
+        var that = this;
+        this.upcomingEvents = null;
+        this.errorMessage = '';
+        this.ref = EventsService.database;
+        console.log(this.games);
+        this.games = $firebaseArray(this.ref);
+
+        EventsService.getAllEvents()
+          .then(function(events) {
+            that.upcomingEvents = events;
+          })
+          .catch(function (err) {
+            console.log('catch error', err);
+            that.errorMessage = "The server is not responding. Please try again shortly.";
+          });
+
+
+      }
+
+})();
+;(function() {
+    'use strict';
+
+    angular
+      .module('washingcon-app')
       .controller('CreateGameController', CreateGameController);
 
     CreateGameController.$inject = ['$scope', '$state', 'EventsService'];
@@ -136,6 +166,7 @@
           return EventsService.deleteEventObject($stateParams.id)
             .then(function(ref) {
               console.log('in deleteEvent promise', ref);
+              $state.go('home');
             })
             .catch(function(err) {
               console.log('catch error', err);
@@ -199,6 +230,7 @@
           return EventsService.deleteEventObject($stateParams.id)
             .then(function(ref) {
               console.log('in deleteEvent promise', ref);
+              $state.go('home');
             })
             .catch(function(err) {
               console.log('catch error', err);
@@ -309,8 +341,8 @@
       }
 
       function deleteEventObject(eventId) {
-        var eventObj = new Firebase('https://incandescent-heat-8431.firebaseio.com/events/' + eventId);
-        return $firebaseObject(eventObj).$remove()
+        var gameObj = firebase.database().ref().child("games/" + eventId);
+        return $firebaseObject(gameObj).$remove()
           .then(function(ref) {
             console.log(ref);
             return ref;
@@ -318,36 +350,6 @@
       }
 
     }
-
-})();
-;(function() {
-    'use strict';
-
-    angular
-      .module('washingcon-app')
-      .controller('HomeController', HomeController);
-
-      HomeController.$inject = ['$scope', '$firebaseArray', 'EventsService'];
-      function HomeController($scope, $firebaseArray, EventsService) {
-
-        var that = this;
-        this.upcomingEvents = null;
-        this.errorMessage = '';
-        this.ref = EventsService.database;
-        console.log(this.games);
-        this.games = $firebaseArray(this.ref);
-
-        EventsService.getAllEvents()
-          .then(function(events) {
-            that.upcomingEvents = events;
-          })
-          .catch(function (err) {
-            console.log('catch error', err);
-            that.errorMessage = "The server is not responding. Please try again shortly.";
-          });
-
-
-      }
 
 })();
 
