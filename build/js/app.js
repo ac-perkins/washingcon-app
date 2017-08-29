@@ -102,6 +102,7 @@
       // });
 
       this.addEvent = function addEvent() {
+        that.newEvent.time = that.newEvent.time.getTime();
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
