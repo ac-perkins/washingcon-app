@@ -1,8 +1,9 @@
 <form class='create-event' ng-submit='create.addEvent()'>
-  <label>Game name:</label><input type='text' class='form-control' ng-model='create.newEvent.name' required placeholder='Name'>
-  <label>Location:</label><input type='text' class='form-control' ng-model='create.newEvent.location' required placeholder='Location'>
-  <label>Time:</label><input type="time" class='form-control' ng-model='create.newEvent.time' required placeholder="HH:mm">
-  <label>PIN:</label><input type="number" class='form-control' ng-model='create.newEvent.pin' required placeholder="4-digit #">
+  <label>Game name:</label><input type='text' class='form-control' ng-model='create.newEvent.name' placeholder='Name'> <!-- TODO: Re add required! -->
+  <label>Location:</label><input type='text' class='form-control' ng-model='create.newEvent.location' placeholder='Location'>
+  <label>Time:</label><input type="time" class='form-control' ng-model='create.newEvent.time' placeholder="HH:mm">
+  <label>Players needed:</label><input type="number" class='form-control' ng-model='create.newEvent.pin' placeholder="">
+  <label>PIN:</label><input type="number" class='form-control' ng-model='create.newEvent.pin' placeholder="4-digit #">
   <label>Notes:</label><textarea type="text" class='form-control' ng-model='create.newEvent.notes'></textarea>
   <button>Create new Game</button>
 </form>

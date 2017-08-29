@@ -1,9 +1,41 @@
 <p>home template</p>
 <button ui-sref='createGame'>Create Game</button>
 <ul>
-  <section class="game-list" ng-repeat='game in home.games' ui-sref='viewGame({ id: game.$id })'>
-    <li>{{game.name}}</li>
-    <li>{{game.location}}</li>
-    <li>{{game.date}}</li>
+  <section class="game-list" ng-repeat='game in home.games' ng-click='home.more[$index] = !home.more[$index]'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
+    <li>Game: {{game.name}}</li>
+    <li>When: {{game.date}}</li>
+    <li>Where: {{game.location}}</li>
+    <li>Players needed: {{game.players}}</li>
+    <li>{{game.pin}}</li>
+    <div ng-show='home.more[$index]'>
+      <li >{{game.notes}}</li>
+      <button ng-click='home.askEditPost(game.$id); $event.stopPropagation();'>Edit</button>
+      <button ng-click='home.askDeletePost(game.$id); $event.stopPropagation();'>Delete</button>
+
+      <div ng-show="home.editAreYouSure" ng-click='$event.stopPropagation();'>
+        <form class='create-event' ng-submit='home.editEvent(game)'>
+          <label>Game:</label><input type='text' class='form-control' ng-model='game.name' ng-model-options="{updateOn: 'submit'}" required placeholder='Name'>
+          <label>When:</label><input type='text' class='form-control' ng-model='game.date' ng-model-options="{updateOn: 'submit'}" required placeholder='Location'>
+          <label>Where:</label><input type="text" class='form-control' ng-model='game.location' ng-model-options="{updateOn: 'submit'}" required>
+          <label>Players needed:</label><input type='number' class='form-control' ng-model='game.players' ng-model-options="{updateOn: 'submit'}" placeholder=''>
+          <label>Notes:</label><textarea type='text' class='form-control' ng-model='game.notes' ng-model-options="{updateOn: 'submit'}" placeholder='Event website'></textarea>
+          <button class='btn btn-default'>Save</button>
+          <button class='btn btn-default' type='button' ng-click='home.doNotEditPost(); home.more[$index] = !home.more[$index]'>Cancel</button>
+        </form>
+      </div>
+
+      <div ng-show="home.areYouSure" class="ask-delete" ng-click='$event.stopPropagation();'>
+        <form>
+          <p>Please enter your PIN to delete this game</p>
+          <input type='number' ng-model='home.deletePin'>
+          <p ng-show='home.wrongPin'>{{home.wrongPin}}</p>
+          <button ng-click='home.deleteEvent(game.$id, game.pin); home.more[$index] = !home.more[$index]' type='submit'>Delete</button>
+          <button ng-click='home.doNotDeletePost(); home.more[$index] = !home.more[$index]' type='button'>Go Back</button>
+        </form>
+      </div>
+    </div>
+
+
+
   </section>
 </ul>

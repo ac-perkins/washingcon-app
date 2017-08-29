@@ -24,12 +24,12 @@
       // });
 
       this.addEvent = function addEvent() {
-        that.newEvent.time = that.newEvent.time.getTime();
+        // that.newEvent.time = that.newEvent.time.getTime();
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
             console.log('in promise', ref);
-            // $state.go('editAllEvents');
+            $state.go('home');
           })
           .catch(function handleError(err) {
             console.log('catch error', err);

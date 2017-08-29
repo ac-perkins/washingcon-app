@@ -25,6 +25,7 @@
       };
 
       function createEvent(newGame) {
+        // newGame.time = newGame.time.toString();
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
@@ -75,18 +76,16 @@
       }
 
       function editEventObject(eventId, editedEvent) {
-        var eventObj = new Firebase('https://incandescent-heat-8431.firebaseio.com/events/' + eventId);
+        var gameObj = firebase.database().ref().child("games/" + eventId);
         console.log('editedEvent', editedEvent);
-        return eventObj.update(
+        return gameObj.update(
           {
-            date: editedEvent.date,
-            game: editedEvent.game,
-            iconSrc: editedEvent.iconSrc,
-            location: editedEvent.location,
             name: editedEvent.name,
-            stream: editedEvent.stream,
-            twitter: editedEvent.twitter,
-            website: editedEvent.website
+            location: editedEvent.location,
+            when: editedEvent.date,
+            players: editedEvent.players,
+            notes: editedEvent.notes,
+
           })
           .then(function() {
             return 'success!';

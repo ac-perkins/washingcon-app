@@ -51,36 +51,6 @@
 
     angular
       .module('washingcon-app')
-      .controller('HomeController', HomeController);
-
-      HomeController.$inject = ['$scope', '$firebaseArray', 'EventsService'];
-      function HomeController($scope, $firebaseArray, EventsService) {
-
-        var that = this;
-        this.upcomingEvents = null;
-        this.errorMessage = '';
-        this.ref = EventsService.database;
-        console.log(this.games);
-        this.games = $firebaseArray(this.ref);
-
-        EventsService.getAllEvents()
-          .then(function(events) {
-            that.upcomingEvents = events;
-          })
-          .catch(function (err) {
-            console.log('catch error', err);
-            that.errorMessage = "The server is not responding. Please try again shortly.";
-          });
-
-
-      }
-
-})();
-;(function() {
-    'use strict';
-
-    angular
-      .module('washingcon-app')
       .controller('CreateGameController', CreateGameController);
 
     CreateGameController.$inject = ['$scope', '$state', 'EventsService'];
@@ -102,12 +72,12 @@
       // });
 
       this.addEvent = function addEvent() {
-        that.newEvent.time = that.newEvent.time.getTime();
+        // that.newEvent.time = that.newEvent.time.getTime();
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
             console.log('in promise', ref);
-            // $state.go('editAllEvents');
+            $state.go('home');
           })
           .catch(function handleError(err) {
             console.log('catch error', err);
@@ -273,6 +243,7 @@
       };
 
       function createEvent(newGame) {
+        // newGame.time = newGame.time.toString();
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
@@ -323,18 +294,16 @@
       }
 
       function editEventObject(eventId, editedEvent) {
-        var eventObj = new Firebase('https://incandescent-heat-8431.firebaseio.com/events/' + eventId);
+        var gameObj = firebase.database().ref().child("games/" + eventId);
         console.log('editedEvent', editedEvent);
-        return eventObj.update(
+        return gameObj.update(
           {
-            date: editedEvent.date,
-            game: editedEvent.game,
-            iconSrc: editedEvent.iconSrc,
-            location: editedEvent.location,
             name: editedEvent.name,
-            stream: editedEvent.stream,
-            twitter: editedEvent.twitter,
-            website: editedEvent.website
+            location: editedEvent.location,
+            when: editedEvent.date,
+            players: editedEvent.players,
+            notes: editedEvent.notes,
+
           })
           .then(function() {
             return 'success!';
@@ -351,6 +320,90 @@
       }
 
     }
+
+})();
+;(function() {
+    'use strict';
+
+    angular
+      .module('washingcon-app')
+      .controller('HomeController', HomeController);
+
+      HomeController.$inject = ['$scope', '$firebaseArray', 'EventsService'];
+      function HomeController($scope, $firebaseArray, EventsService) {
+
+        var that = this;
+        this.upcomingEvents = null;
+        this.errorMessage = '';
+        this.deletePin = null;
+        this.ref = EventsService.database;
+        console.log(this.games);
+        this.games = $firebaseArray(this.ref);
+
+        this.askEditPost = function askEditPost(postId) {
+          this.deletePostID = postId;
+          this.editAreYouSure = true;
+        };
+
+        this.doNotEditPost = function doNotDeletePost() {
+          this.editAreYouSure = false;
+        };
+
+        this.askDeletePost = function askDeletePost(postId) {
+          this.deletePostID = postId;
+          this.areYouSure = true;
+        };
+
+        this.doNotDeletePost = function doNotDeletePost() {
+          this.areYouSure = false;
+        };
+
+        EventsService.getAllEvents()
+          .then(function(events) {
+            that.upcomingEvents = events;
+          })
+          .catch(function (err) {
+            console.log('catch error', err);
+            that.errorMessage = "The server is not responding. Please try again shortly.";
+          });
+
+        this.wrongPin = '';
+
+        this.editEvent = function editEvent(game) {
+          console.log('edit game', game);
+          return EventsService.editEventObject(game.$id, game)
+            .then(function(ref) {
+              console.log('in editEvent promise', ref);
+              // $state.go('editAllEvents');
+            })
+            .catch(function(err) {
+              console.log('catch error', err);
+              that.errorMessage = 'The server is not responding. Please try again shortly.';
+            });
+        };
+
+        this.deleteEvent = function deleteEvent(gameId, pin) {
+          if (that.deletePin !== pin) {
+            that.wrongPin = 'You have entered an incorrect PIN. Please try again.';
+          } else {
+
+          return EventsService.deleteEventObject(gameId)
+            .then(function(ref) {
+              console.log('in deleteEvent promise', ref);
+              that.deletePin = '';
+              that.areYouSure = false;
+              // $state.go('home');
+            })
+            .catch(function(err) {
+              console.log('catch error', err);
+              that.errorMessage = 'The server is not responding. Please try again shortly.';
+            });
+          }
+
+        };
+
+
+      }
 
 })();
 
