@@ -2,7 +2,7 @@
     'use strict';
 
   angular
-    .module('washingcon-app',['firebase', 'ui.router'])
+    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap'])
     .config(appConfig);
 
   appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -53,11 +53,10 @@
       .module('washingcon-app')
       .controller('CreateGameController', CreateGameController);
 
-    CreateGameController.$inject = ['$scope', '$state', 'EventsService'];
-    function CreateGameController($scope, $state, EventsService) {
+    CreateGameController.$inject = ['$scope', '$state', '$log', 'EventsService'];
+    function CreateGameController($scope, $state, $log, EventsService) {
 
       this.singleGameEvents = EventsService.singleGameEvents;
-      // this.gameList = NavService.allGamesArray;
       var that = this;
       this.newEvent = null;
       this.errorMessage = '';
@@ -65,17 +64,13 @@
       console.log(EventsService.database);
       EventsService.getAllEvents();
 
-      // $scope.$watch('create.newEvent.game', function makeIconSrc(v){
-      //   v = v.replace(/[^\w]+/g, '');
-      //   that.newEvent.iconSrc = v;
-      //   console.log('$watch', that.newEvent.iconSrc);
-      // });
 
       this.addEvent = function addEvent() {
-        // that.newEvent.time = that.newEvent.time.getTime();
+        that.newEvent.time = $scope.mytime.getTime();
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
+            console.log('mytime', $scope.mytime);
             console.log('in promise', ref);
             $state.go('home');
           })
@@ -83,6 +78,37 @@
             console.log('catch error', err);
             that.errorMessage = 'The server is not responding. Please try again shortly.';
           });
+      };
+
+
+      $scope.mytime = new Date();
+
+      $scope.hstep = 1;
+      $scope.mstep = 5;
+
+      // $scope.options = {
+      //   hstep: [1, 2, 3],
+      //   mstep: [1, 5, 10, 15, 25, 30]
+      // };
+
+      $scope.ismeridian = true;
+      $scope.toggleMode = function() {
+        $scope.ismeridian = ! $scope.ismeridian;
+      };
+
+      $scope.update = function() {
+        var d = new Date();
+        d.setHours( 14 );
+        d.setMinutes( 0 );
+        $scope.mytime = d;
+      };
+
+      $scope.changed = function () {
+        $log.log('Time changed to: ' + $scope.mytime);
+      };
+
+      $scope.clear = function() {
+        $scope.mytime = null;
       };
 
 
@@ -226,14 +252,15 @@
     EventsService.$inject = ['$q', '$firebaseObject', '$firebaseArray'];
     function EventsService($q, $firebaseObject, $firebaseArray) {
 
-      // var events = new Firebase('https://incandescent-heat-8431.firebaseio.com/events');
-      var database = firebase.database().ref().child("games");
-      console.log(database);
+      var database = firebase.database().ref().child('games');
+      var timeWindow = new Date().getTime() - 1200000;  // Creates a Date object that is set 20 minutes in the past
+      var currentGamesRef = firebase.database().ref().child('games').orderByChild('time').startAt(timeWindow);  // Retrieves list of games, ordered by start time, going back 20 minutes
       var allEvents = [];
       var singleGameEvents = [];
 
       return {
         database: database,
+        currentGamesRef: currentGamesRef,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
         getSingleGameEvents: getSingleGameEvents,
@@ -300,9 +327,9 @@
           {
             name: editedEvent.name,
             location: editedEvent.location,
-            when: editedEvent.date,
+            time: editedEvent.time,
             players: editedEvent.players,
-            notes: editedEvent.notes,
+            notes: editedEvent.notes || '',
 
           })
           .then(function() {
@@ -336,7 +363,7 @@
         this.upcomingEvents = null;
         this.errorMessage = '';
         this.deletePin = null;
-        this.ref = EventsService.database;
+        this.ref = EventsService.currentGamesRef;
         console.log(this.games);
         this.games = $firebaseArray(this.ref);
 
@@ -358,8 +385,17 @@
           this.areYouSure = false;
         };
 
+        this.timeFilter = function timeFilter(time) {
+          console.log('game', time);
+          // if (Number(time) > (new Date - 1500000) ) {
+          //   return true;
+          // }
+          // return false;
+        };
+
         EventsService.getAllEvents()
           .then(function(events) {
+            console.log('events', events);
             that.upcomingEvents = events;
           })
           .catch(function (err) {
@@ -400,6 +436,34 @@
             });
           }
 
+        };
+
+        $scope.hstep = 1;
+        $scope.mstep = 5;
+
+        // $scope.options = {
+        //   hstep: [1, 2, 3],
+        //   mstep: [1, 5, 10, 15, 25, 30]
+        // };
+
+        $scope.ismeridian = true;
+        $scope.toggleMode = function() {
+          $scope.ismeridian = ! $scope.ismeridian;
+        };
+
+        $scope.update = function() {
+          var d = new Date();
+          d.setHours( 14 );
+          d.setMinutes( 0 );
+          $scope.mytime = d;
+        };
+
+        $scope.changed = function () {
+          $log.log('Time changed to: ' + $scope.mytime);
+        };
+
+        $scope.clear = function() {
+          $scope.mytime = null;
         };
 
 

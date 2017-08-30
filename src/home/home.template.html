@@ -3,7 +3,7 @@
 <ul>
   <section class="game-list" ng-repeat='game in home.games' ng-click='home.more[$index] = !home.more[$index]'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
     <li>Game: {{game.name}}</li>
-    <li>When: {{game.date}}</li>
+    <li>When: {{game.time | date:'shortTime'}}</li>
     <li>Where: {{game.location}}</li>
     <li>Players needed: {{game.players}}</li>
     <li>{{game.pin}}</li>
@@ -15,10 +15,11 @@
       <div ng-show="home.editAreYouSure" ng-click='$event.stopPropagation();'>
         <form class='create-event' ng-submit='home.editEvent(game)'>
           <label>Game:</label><input type='text' class='form-control' ng-model='game.name' ng-model-options="{updateOn: 'submit'}" required placeholder='Name'>
-          <label>When:</label><input type='text' class='form-control' ng-model='game.date' ng-model-options="{updateOn: 'submit'}" required placeholder='Location'>
+          <!-- <label>When:</label><input type='text' class='form-control' ng-model='game.date' ng-model-options="{updateOn: 'submit'}" required placeholder='Location'> -->
+          <div uib-timepicker ng-model="game.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
           <label>Where:</label><input type="text" class='form-control' ng-model='game.location' ng-model-options="{updateOn: 'submit'}" required>
-          <label>Players needed:</label><input type='number' class='form-control' ng-model='game.players' ng-model-options="{updateOn: 'submit'}" placeholder=''>
-          <label>Notes:</label><textarea type='text' class='form-control' ng-model='game.notes' ng-model-options="{updateOn: 'submit'}" placeholder='Event website'></textarea>
+          <label>Players needed:</label><input type='number' class='form-control' ng-model='game.players' ng-model-options="{updateOn: 'submit'}">
+          <label>Notes:</label><textarea type='text' class='form-control' ng-model='game.notes' ng-model-options="{updateOn: 'submit'}"></textarea>
           <button class='btn btn-default'>Save</button>
           <button class='btn btn-default' type='button' ng-click='home.doNotEditPost(); home.more[$index] = !home.more[$index]'>Cancel</button>
         </form>

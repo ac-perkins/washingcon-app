@@ -8,14 +8,15 @@
     EventsService.$inject = ['$q', '$firebaseObject', '$firebaseArray'];
     function EventsService($q, $firebaseObject, $firebaseArray) {
 
-      // var events = new Firebase('https://incandescent-heat-8431.firebaseio.com/events');
-      var database = firebase.database().ref().child("games");
-      console.log(database);
+      var database = firebase.database().ref().child('games');
+      var timeWindow = new Date().getTime() - 1200000;  // Creates a Date object that is set 20 minutes in the past
+      var currentGamesRef = firebase.database().ref().child('games').orderByChild('time').startAt(timeWindow);  // Retrieves list of games, ordered by start time, going back 20 minutes
       var allEvents = [];
       var singleGameEvents = [];
 
       return {
         database: database,
+        currentGamesRef: currentGamesRef,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
         getSingleGameEvents: getSingleGameEvents,
@@ -82,9 +83,9 @@
           {
             name: editedEvent.name,
             location: editedEvent.location,
-            when: editedEvent.date,
+            time: editedEvent.time,
             players: editedEvent.players,
-            notes: editedEvent.notes,
+            notes: editedEvent.notes || '',
 
           })
           .then(function() {

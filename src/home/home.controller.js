@@ -12,7 +12,7 @@
         this.upcomingEvents = null;
         this.errorMessage = '';
         this.deletePin = null;
-        this.ref = EventsService.database;
+        this.ref = EventsService.currentGamesRef;
         console.log(this.games);
         this.games = $firebaseArray(this.ref);
 
@@ -34,8 +34,17 @@
           this.areYouSure = false;
         };
 
+        this.timeFilter = function timeFilter(time) {
+          console.log('game', time);
+          // if (Number(time) > (new Date - 1500000) ) {
+          //   return true;
+          // }
+          // return false;
+        };
+
         EventsService.getAllEvents()
           .then(function(events) {
+            console.log('events', events);
             that.upcomingEvents = events;
           })
           .catch(function (err) {
@@ -76,6 +85,34 @@
             });
           }
 
+        };
+
+        $scope.hstep = 1;
+        $scope.mstep = 5;
+
+        // $scope.options = {
+        //   hstep: [1, 2, 3],
+        //   mstep: [1, 5, 10, 15, 25, 30]
+        // };
+
+        $scope.ismeridian = true;
+        $scope.toggleMode = function() {
+          $scope.ismeridian = ! $scope.ismeridian;
+        };
+
+        $scope.update = function() {
+          var d = new Date();
+          d.setHours( 14 );
+          d.setMinutes( 0 );
+          $scope.mytime = d;
+        };
+
+        $scope.changed = function () {
+          $log.log('Time changed to: ' + $scope.mytime);
+        };
+
+        $scope.clear = function() {
+          $scope.mytime = null;
         };
 
 
