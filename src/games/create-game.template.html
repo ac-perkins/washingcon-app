@@ -1,11 +1,13 @@
+<button ui-sref='home'>Back</button>
 <form class='create-event' ng-submit='create.addEvent()'>
   <label>Game name:</label><input type='text' class='form-control' ng-model='create.newEvent.name' placeholder='Name'> <!-- TODO: Re add required! -->
   <label>Location:</label><input type='text' class='form-control' ng-model='create.newEvent.location' placeholder='Location'>
   <!-- <label>Time:</label><input type="time" class='form-control' ng-model='create.newEvent.time' placeholder="HH:mm"> -->
-  <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
-  <label>Players needed:</label><input type="number" class='form-control' ng-model='create.newEvent.players' placeholder="">
-  <label>PIN:</label><input type="number" class='form-control' ng-model='create.newEvent.pin' placeholder="4-digit #">
-  <label>Notes:</label><textarea type="text" class='form-control' ng-model='create.newEvent.notes'></textarea>
+  <!-- <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
+  <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required>
+  <label>Players needed:</label><input type="number" class='form-control' ng-model='create.newEvent.players' >
+  <label>PIN:</label><input type="tel" class='form-control' ng-model='create.newEvent.pin' placeholder="4-digit #">
+  <label>Notes:</label><textarea type="text" class='form-control' ng-model='create.newEvent.notes' ></textarea>
   <button>Create new Game</button>
 </form>
 

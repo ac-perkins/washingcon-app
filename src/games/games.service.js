@@ -8,25 +8,28 @@
     EventsService.$inject = ['$q', '$firebaseObject', '$firebaseArray'];
     function EventsService($q, $firebaseObject, $firebaseArray) {
 
-      var database = firebase.database().ref().child('games');
+      var database = firebase.database().ref().child('games');  // Reference to the set of 'games' data on Firebase
+      var admin = firebase.database().ref().child('admin');
       var timeWindow = new Date().getTime() - 1200000;  // Creates a Date object that is set 20 minutes in the past
       var currentGamesRef = firebase.database().ref().child('games').orderByChild('time').startAt(timeWindow);  // Retrieves list of games, ordered by start time, going back 20 minutes
       var allEvents = [];
       var singleGameEvents = [];
 
+
       return {
         database: database,
+        admin: admin,
         currentGamesRef: currentGamesRef,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
-        getSingleGameEvents: getSingleGameEvents,
+        // getSingleGameEvents: getSingleGameEvents,
         getEventObject: getEventObject,
         editEventObject: editEventObject,
         deleteEventObject: deleteEventObject
       };
 
       function createEvent(newGame) {
-        // newGame.time = newGame.time.toString();
+        newGame.time = new Date(newGame.time).getTime();
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
@@ -54,18 +57,18 @@
           });
       }
 
-      function getSingleGameEvents(game) {
-        singleGameEvents = [];
-        return $firebaseArray(events).$loaded()
-          .then(function(x) {
-            x.forEach(function findEvent(each) {
-              if(each.game === game) {
-                singleGameEvents.push(each);
-              }
-            });
-            return singleGameEvents;
-          });
-      }
+      // function getSingleGameEvents(game) {
+      //   singleGameEvents = [];
+      //   return $firebaseArray(events).$loaded()
+      //     .then(function(x) {
+      //       x.forEach(function findEvent(each) {
+      //         if(each.game === game) {
+      //           singleGameEvents.push(each);
+      //         }
+      //       });
+      //       return singleGameEvents;
+      //     });
+      // }
 
       function getEventObject(eventId) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
@@ -78,6 +81,7 @@
 
       function editEventObject(eventId, editedEvent) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
+        editedEvent.time = new Date(editedEvent.time).getTime();
         console.log('editedEvent', editedEvent);
         return gameObj.update(
           {

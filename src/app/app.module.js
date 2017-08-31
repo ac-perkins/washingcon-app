@@ -2,7 +2,7 @@
     'use strict';
 
   angular
-    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap'])
+    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap', 'angularjs-datetime-picker'])
     .config(appConfig);
 
   appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -29,13 +29,13 @@
       templateUrl: 'games/create-game.template.html',
       controller: 'CreateGameController',
       controllerAs: 'create'
-    })
-    .state('viewGame', {
-      url: '/game/:id',
-      templateUrl: 'games/game.template.html',
-      controller: 'GameController',
-      controllerAs: 'gc'
     });
+    // .state('viewGame', {
+    //   url: '/game/:id',
+    //   templateUrl: 'games/game.template.html',
+    //   controller: 'GameController',
+    //   controllerAs: 'gc'
+    // });
     // .state('editAllEvents', {
     //   url: '/event/edit',
     //   templateUrl: 'events/edit-all-events.template.html',

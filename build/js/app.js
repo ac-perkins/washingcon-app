@@ -2,7 +2,7 @@
     'use strict';
 
   angular
-    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap'])
+    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap', 'angularjs-datetime-picker'])
     .config(appConfig);
 
   appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -29,13 +29,13 @@
       templateUrl: 'games/create-game.template.html',
       controller: 'CreateGameController',
       controllerAs: 'create'
-    })
-    .state('viewGame', {
-      url: '/game/:id',
-      templateUrl: 'games/game.template.html',
-      controller: 'GameController',
-      controllerAs: 'gc'
     });
+    // .state('viewGame', {
+    //   url: '/game/:id',
+    //   templateUrl: 'games/game.template.html',
+    //   controller: 'GameController',
+    //   controllerAs: 'gc'
+    // });
     // .state('editAllEvents', {
     //   url: '/event/edit',
     //   templateUrl: 'events/edit-all-events.template.html',
@@ -66,7 +66,7 @@
 
 
       this.addEvent = function addEvent() {
-        that.newEvent.time = $scope.mytime.getTime();
+        // that.newEvent.time = $scope.mytime.getTime();
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
@@ -252,25 +252,28 @@
     EventsService.$inject = ['$q', '$firebaseObject', '$firebaseArray'];
     function EventsService($q, $firebaseObject, $firebaseArray) {
 
-      var database = firebase.database().ref().child('games');
+      var database = firebase.database().ref().child('games');  // Reference to the set of 'games' data on Firebase
+      var admin = firebase.database().ref().child('admin');
       var timeWindow = new Date().getTime() - 1200000;  // Creates a Date object that is set 20 minutes in the past
       var currentGamesRef = firebase.database().ref().child('games').orderByChild('time').startAt(timeWindow);  // Retrieves list of games, ordered by start time, going back 20 minutes
       var allEvents = [];
       var singleGameEvents = [];
 
+
       return {
         database: database,
+        admin: admin,
         currentGamesRef: currentGamesRef,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
-        getSingleGameEvents: getSingleGameEvents,
+        // getSingleGameEvents: getSingleGameEvents,
         getEventObject: getEventObject,
         editEventObject: editEventObject,
         deleteEventObject: deleteEventObject
       };
 
       function createEvent(newGame) {
-        // newGame.time = newGame.time.toString();
+        newGame.time = new Date(newGame.time).getTime();
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
@@ -298,18 +301,18 @@
           });
       }
 
-      function getSingleGameEvents(game) {
-        singleGameEvents = [];
-        return $firebaseArray(events).$loaded()
-          .then(function(x) {
-            x.forEach(function findEvent(each) {
-              if(each.game === game) {
-                singleGameEvents.push(each);
-              }
-            });
-            return singleGameEvents;
-          });
-      }
+      // function getSingleGameEvents(game) {
+      //   singleGameEvents = [];
+      //   return $firebaseArray(events).$loaded()
+      //     .then(function(x) {
+      //       x.forEach(function findEvent(each) {
+      //         if(each.game === game) {
+      //           singleGameEvents.push(each);
+      //         }
+      //       });
+      //       return singleGameEvents;
+      //     });
+      // }
 
       function getEventObject(eventId) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
@@ -322,6 +325,7 @@
 
       function editEventObject(eventId, editedEvent) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
+        editedEvent.time = new Date(editedEvent.time).getTime();
         console.log('editedEvent', editedEvent);
         return gameObj.update(
           {
@@ -356,23 +360,27 @@
       .module('washingcon-app')
       .controller('HomeController', HomeController);
 
-      HomeController.$inject = ['$scope', '$firebaseArray', 'EventsService'];
-      function HomeController($scope, $firebaseArray, EventsService) {
+      HomeController.$inject = ['$scope', '$firebaseArray', '$firebaseObject', 'EventsService'];
+      function HomeController($scope, $firebaseArray, $firebaseObject, EventsService) {
 
         var that = this;
         this.upcomingEvents = null;
         this.errorMessage = '';
         this.deletePin = null;
         this.ref = EventsService.currentGamesRef;
-        console.log(this.games);
+
+
         this.games = $firebaseArray(this.ref);
+        console.log(this.games);
+        this.admin = $firebaseArray(EventsService.admin);
+        console.log(this.admin);
 
         this.askEditPost = function askEditPost(postId) {
           this.deletePostID = postId;
           this.editAreYouSure = true;
         };
 
-        this.doNotEditPost = function doNotDeletePost() {
+        this.doNotEditPost = function doNotEditPost() {
           this.editAreYouSure = false;
         };
 
@@ -393,15 +401,15 @@
           // return false;
         };
 
-        EventsService.getAllEvents()
-          .then(function(events) {
-            console.log('events', events);
-            that.upcomingEvents = events;
-          })
-          .catch(function (err) {
-            console.log('catch error', err);
-            that.errorMessage = "The server is not responding. Please try again shortly.";
-          });
+        // EventsService.getAllEvents()
+        //   .then(function(events) {
+        //     console.log('events', events);
+        //     that.upcomingEvents = events;
+        //   })
+        //   .catch(function (err) {
+        //     console.log('catch error', err);
+        //     that.errorMessage = "The server is not responding. Please try again shortly.";
+        //   });
 
         this.wrongPin = '';
 
@@ -409,6 +417,7 @@
           console.log('edit game', game);
           return EventsService.editEventObject(game.$id, game)
             .then(function(ref) {
+              that.editAreYouSure = false;
               console.log('in editEvent promise', ref);
               // $state.go('editAllEvents');
             })
@@ -421,6 +430,7 @@
         this.deleteEvent = function deleteEvent(gameId, pin) {
           if (that.deletePin !== pin) {
             that.wrongPin = 'You have entered an incorrect PIN. Please try again.';
+            console.log("wrong pin", that.deletePin);
           } else {
 
           return EventsService.deleteEventObject(gameId)
@@ -437,6 +447,14 @@
           }
 
         };
+
+        $scope.$watch('gameTime', function (newValue) {
+          game.time = $filter('date')(newValue, 'yyyy/MM/dd');
+        });
+
+        $scope.$watch('this.games.game.time', function (newValue) {
+          $scope.gameTime = $filter('date')(newValue, 'yyyy/MM/dd');
+        });
 
         $scope.hstep = 1;
         $scope.mstep = 5;
