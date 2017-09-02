@@ -30,6 +30,8 @@
 
       function createEvent(newGame) {
         newGame.time = new Date(newGame.time).getTime();
+        // newGame.time = newGame.time.toString();
+
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);

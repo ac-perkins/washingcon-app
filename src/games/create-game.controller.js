@@ -18,7 +18,8 @@
 
 
       this.addEvent = function addEvent() {
-        // that.newEvent.time = $scope.mytime.getTime();
+        that.newEvent.time = that.newEvent.time.toString();
+        console.log('after string', that.newEvent.time);
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);

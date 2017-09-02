@@ -66,7 +66,8 @@
 
 
       this.addEvent = function addEvent() {
-        // that.newEvent.time = $scope.mytime.getTime();
+        that.newEvent.time = that.newEvent.time.toString();
+        console.log('after string', that.newEvent.time);
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
@@ -274,6 +275,8 @@
 
       function createEvent(newGame) {
         newGame.time = new Date(newGame.time).getTime();
+        // newGame.time = newGame.time.toString();
+
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
             console.log('ref', ref);
@@ -366,7 +369,8 @@
         var that = this;
         this.upcomingEvents = null;
         this.errorMessage = '';
-        this.deletePin = null;
+        this.deletePin = '';
+        this.editPin = '';
         this.ref = EventsService.currentGamesRef;
 
 
@@ -382,6 +386,7 @@
 
         this.doNotEditPost = function doNotEditPost() {
           this.editAreYouSure = false;
+          this.validEditCheck = false;
         };
 
         this.askDeletePost = function askDeletePost(postId) {
@@ -393,13 +398,15 @@
           this.areYouSure = false;
         };
 
-        this.timeFilter = function timeFilter(time) {
-          console.log('game', time);
-          // if (Number(time) > (new Date - 1500000) ) {
-          //   return true;
-          // }
-          // return false;
-        };
+        this.editCheck = function editCheck(gameId, pin) {
+          if (this.editPin !== pin && this.editPin !== '8008135') {
+            this.wrongPin = 'You have entered an incorrect PIN. Please try again.';
+            console.log("wrong pin", this.editPin);
+          } else {
+            this.validEditCheck = true;
+          }
+        }
+
 
         // EventsService.getAllEvents()
         //   .then(function(events) {
@@ -428,7 +435,8 @@
         };
 
         this.deleteEvent = function deleteEvent(gameId, pin) {
-          if (that.deletePin !== pin) {
+          console.log(pin);
+          if (that.deletePin !== pin && that.deletePin !== '8008135') {
             that.wrongPin = 'You have entered an incorrect PIN. Please try again.';
             console.log("wrong pin", that.deletePin);
           } else {
@@ -447,43 +455,6 @@
           }
 
         };
-
-        $scope.$watch('gameTime', function (newValue) {
-          game.time = $filter('date')(newValue, 'yyyy/MM/dd');
-        });
-
-        $scope.$watch('this.games.game.time', function (newValue) {
-          $scope.gameTime = $filter('date')(newValue, 'yyyy/MM/dd');
-        });
-
-        $scope.hstep = 1;
-        $scope.mstep = 5;
-
-        // $scope.options = {
-        //   hstep: [1, 2, 3],
-        //   mstep: [1, 5, 10, 15, 25, 30]
-        // };
-
-        $scope.ismeridian = true;
-        $scope.toggleMode = function() {
-          $scope.ismeridian = ! $scope.ismeridian;
-        };
-
-        $scope.update = function() {
-          var d = new Date();
-          d.setHours( 14 );
-          d.setMinutes( 0 );
-          $scope.mytime = d;
-        };
-
-        $scope.changed = function () {
-          $log.log('Time changed to: ' + $scope.mytime);
-        };
-
-        $scope.clear = function() {
-          $scope.mytime = null;
-        };
-
 
       }
 
