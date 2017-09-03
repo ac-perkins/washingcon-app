@@ -51,6 +51,33 @@
 
     angular
       .module('washingcon-app')
+      .directive('timedateFormatter', function($filter) {
+        return {
+          require: 'ngModel',
+          link: function(scope, element, attrs, ngModelController) {
+            ngModelController.$parsers.push(function(data) {
+              //convert data from view format to model format
+              data = new Date(data).getTime();
+              // $filter('date')(data, "short");
+              return data; //converted
+            });
+
+            ngModelController.$formatters.push(function(data) {
+              //convert data from model format to view format
+              data = $filter('date')(data, "short");
+              // data = new Date(data).getTime();
+              return data; //converted
+            });
+          }
+        };
+      });
+
+})();
+;(function() {
+    'use strict';
+
+    angular
+      .module('washingcon-app')
       .controller('CreateGameController', CreateGameController);
 
     CreateGameController.$inject = ['$scope', '$state', '$log', 'EventsService'];
@@ -373,11 +400,8 @@
         this.editPin = '';
         this.ref = EventsService.currentGamesRef;
 
-
         this.games = $firebaseArray(this.ref);
         console.log(this.games);
-        this.admin = $firebaseArray(EventsService.admin);
-        console.log(this.admin);
 
         this.askEditPost = function askEditPost(postId) {
           this.deletePostID = postId;
@@ -405,18 +429,8 @@
           } else {
             this.validEditCheck = true;
           }
-        }
+        };
 
-
-        // EventsService.getAllEvents()
-        //   .then(function(events) {
-        //     console.log('events', events);
-        //     that.upcomingEvents = events;
-        //   })
-        //   .catch(function (err) {
-        //     console.log('catch error', err);
-        //     that.errorMessage = "The server is not responding. Please try again shortly.";
-        //   });
 
         this.wrongPin = '';
 
