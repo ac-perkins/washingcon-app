@@ -15,11 +15,8 @@
         this.editPin = '';
         this.ref = EventsService.currentGamesRef;
 
-
         this.games = $firebaseArray(this.ref);
         console.log(this.games);
-        this.admin = $firebaseArray(EventsService.admin);
-        console.log(this.admin);
 
         this.askEditPost = function askEditPost(postId) {
           this.deletePostID = postId;
@@ -47,18 +44,8 @@
           } else {
             this.validEditCheck = true;
           }
-        }
+        };
 
-
-        // EventsService.getAllEvents()
-        //   .then(function(events) {
-        //     console.log('events', events);
-        //     that.upcomingEvents = events;
-        //   })
-        //   .catch(function (err) {
-        //     console.log('catch error', err);
-        //     that.errorMessage = "The server is not responding. Please try again shortly.";
-        //   });
 
         this.wrongPin = '';
 
