@@ -3,19 +3,20 @@
 <ul>
   <section>
     <li>Game: {{gc.game.name}}</li>
-    <li>Location: {{gc.game.location}}</li>
     <li>When: {{gc.game.time | date:'short'}}</li>
+    <li>Where: {{gc.game.location}}</li>
+    <li>Players needed: {{gc.game.players}}</li>
     <li>Notes: {{gc.game.notes}}</li>
   </section>
 </ul>
 <!-- <button>Edit Game</button>
 <button ng-click='gc.deleteEvent()'>Delete Game</button> -->
 
-<button ng-click='gc.askEditPost(game.$id); $event.stopPropagation();'>Edit</button>
-<button ng-click='gc.askDeletePost(game.$id); $event.stopPropagation();'>Delete</button>
+<button ng-click='gc.askEditPost(); $event.stopPropagation();'>Edit</button>
+<button ng-click='gc.askDeletePost(); $event.stopPropagation();'>Delete</button>
 
 
-<div ng-show="gc.editAreYouSure" ng-click='$event.stopPropagation();'>
+<div ng-show="gc.editAreYouSure">
   <div class="modal-bg"></div>
   <form class="delete-event">
     <p>Please enter this games's PIN to edit it.</p>

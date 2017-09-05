@@ -15,8 +15,6 @@
         this.deletePin = '';
         this.editPin = '';
 
-
-
         EventsService.getEventObject($stateParams.id)
           .then(function(eventObj) {
             console.log(eventObj);
@@ -27,37 +25,12 @@
             that.errorMessage = 'The server is not responding. Please try again shortly.';
           });
 
-        // this.editEvent = function editEvent() {
-        //   console.log('that.event', this.event);
-        //   return EventsService.editEventObject($stateParams.id, that.event)
-        //     .then(function(ref) {
-        //       console.log('in editEvent promise', ref);
-        //       $state.go('editAllEvents');
-        //     })
-        //     .catch(function(err) {
-        //       console.log('catch error', err);
-        //       that.errorMessage = 'The server is not responding. Please try again shortly.';
-        //     });
-        // };
-
-        // this.deleteEvent = function deleteEvent() {
-        //   return EventsService.deleteEventObject($stateParams.id)
-        //     .then(function(ref) {
-        //       console.log('in deleteEvent promise', ref);
-        //       $state.go('home');
-        //     })
-        //     .catch(function(err) {
-        //       console.log('catch error', err);
-        //       that.errorMessage = 'The server is not responding. Please try again shortly.';
-        //     });
-        // };
-
         this.cancelEdit = function cancelEdit() {
           $state.go('editAllEvents');
         };
 
-        this.askEditPost = function askEditPost(postId) {
-          this.deletePostID = postId;
+        this.askEditPost = function askEditPost() {
+          // this.deletePostID = postId;
           this.editAreYouSure = true;
         };
 
@@ -66,8 +39,8 @@
           this.validEditCheck = false;
         };
 
-        this.askDeletePost = function askDeletePost(postId) {
-          this.deletePostID = postId;
+        this.askDeletePost = function askDeletePost() {
+          // this.deletePostID = postId;
           this.areYouSure = true;
         };
 
@@ -91,9 +64,11 @@
           console.log('edit game', game);
           return EventsService.editEventObject(game.$id, game)
             .then(function(ref) {
+              // console.log('that.editAreYouSure', that.editAreYouSure);
               that.editAreYouSure = false;
+              // console.log('that.editAreYouSure', that.editAreYouSure);
               console.log('in editEvent promise', ref);
-              // $state.go('editAllEvents');
+              $state.go('viewGame({id: game.$id})');
             })
             .catch(function(err) {
               console.log('catch error', err);
