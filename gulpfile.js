@@ -39,7 +39,7 @@ gulp.task('build-js', function() {
   return gulp.src(['src/app/app.module.js', 'src/**/*.js'])
     .pipe(sourcemaps.init())
       .pipe(concat('app.js', {newLine: ';'}))
-      // .pipe(uglify())
+      .pipe(uglify())
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('build/js'));
 });
@@ -60,6 +60,8 @@ gulp.task('build-css', function () {
           stream: true
         }));
 });
+
+gulp.task('build', ['jshint', 'copyHtml', 'build-css', 'build-js']);
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', ['browserSync', 'build-css'], function() {
