@@ -1,15 +1,20 @@
+<section>
+  <p>Fill in the details of the game you're playing.</p>
+  <p>Your game will be listed immediately and will remain on the list until 15min after your start time.</p>
+</section>
+
 <form class='create-event' ng-submit='create.addEvent()'>
-  <label>Game:</label><input type='text' class='form-control' ng-model='create.newEvent.name' placeholder='Name' required> <!-- TODO: Re add required! -->
+  <label>Game Title:</label><input type='text' class='form-control' ng-model='create.newEvent.name' placeholder='Name' required> <!-- TODO: Re add required! -->
   <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required>
-  <label>Where:</label><input type='text' class='form-control' ng-model='create.newEvent.location' placeholder='Location' required>
+  <label>Where will you set up:</label><input type='text' class='form-control' ng-model='create.newEvent.location' placeholder='Main Hall - Row E' required>
   <!-- <label>Time:</label><input type="time" class='form-control' ng-model='create.newEvent.time' placeholder="HH:mm"> -->
   <!-- <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
   <!-- <label>When:</label><input type="datetime-local" ng-model="create.newEvent.time" required> -->
   <!-- <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required> -->
-  <label>Players needed:</label><input type="number" class='form-control' ng-model='create.newEvent.players' required>
-  <label>PIN:</label><input type="tel" class='form-control' ng-model='create.newEvent.pin' min="4" max="8" placeholder="4 - 8 digit PIN">
+  <label>Open Spots for Players:</label><input type="number" class='form-control' ng-model='create.newEvent.players' required>
+  <label>PIN (So only you can edit the game later):</label><input type="tel" class='form-control' ng-model='create.newEvent.pin' min="4" max="8" placeholder="4 - 8 digit PIN">
   <label>Notes:</label><textarea type="text" class='form-control' ng-model='create.newEvent.notes'></textarea>
-  <button>Create new Game</button>
+  <button class="create-game-button">Create New Game</button>
 </form>
 
 

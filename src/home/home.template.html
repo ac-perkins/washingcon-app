@@ -1,3 +1,8 @@
+<section>
+  <p>Need players? Create a game, it will appear on the list and then people can find you.</p>
+  <p>Looking to join a game? Here's a list of games starting soon. Go meet them at the listed location.</p>
+</section>
+
 <ul>
   <section class="game-list" ng-repeat='game in home.games' ui-sref='viewGame({id: game.$id})'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
     <li class="game-name">{{game.name}}</li>
