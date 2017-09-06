@@ -1,4 +1,3 @@
-<button ui-sref='createGame'>Create Game</button>
 <ul>
   <section class="game-list" ng-repeat='game in home.games' ui-sref='viewGame({id: game.$id})'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
     <li>Game: {{game.name}}</li>
@@ -8,3 +7,4 @@
     <!-- <li>{{game.pin}}</li> -->
   </section>
 </ul>
+<button class="nav-button" ui-sref='createGame'>Create<br>Game</button>
