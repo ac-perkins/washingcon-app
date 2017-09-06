@@ -1,4 +1,3 @@
-<button ui-sref='home'>Back</button>
 <form class='create-event' ng-submit='create.addEvent()'>
   <label>Game:</label><input type='text' class='form-control' ng-model='create.newEvent.name' placeholder='Name' required> <!-- TODO: Re add required! -->
   <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required>
@@ -15,3 +14,5 @@
 
 
 <p class='error-msg' ng-show='create.errorMessage'>{{create.errorMessage}}</p>
+
+<button class="nav-button" ui-sref='home'>Back</button>

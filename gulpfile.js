@@ -28,6 +28,10 @@ gulp.task('copyHtml', function() {
   return gulp.src('src/**/*.html').pipe(gulp.dest('build'));
 });
 
+gulp.task('copy-images', function() {
+  return gulp.src('src/**/*.{png,jpg}').pipe(gulp.dest('build'));
+});
+
 // configure the jshint task
 gulp.task('jshint', function() {
   return gulp.src('src/**/*.js')
@@ -39,7 +43,7 @@ gulp.task('build-js', function() {
   return gulp.src(['src/app/app.module.js', 'src/**/*.js'])
     .pipe(sourcemaps.init())
       .pipe(concat('app.js', {newLine: ';'}))
-      // .pipe(uglify())
+      .pipe(uglify())
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('build/js'));
 });
@@ -61,10 +65,13 @@ gulp.task('build-css', function () {
         }));
 });
 
+gulp.task('build', ['jshint', 'copyHtml', 'build-css', 'build-js']);
+
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', ['browserSync', 'build-css'], function() {
   gulp.watch('src/**/*.js', ['jshint']);
   gulp.watch('src/**/*.html', ['copyHtml']);
+  gulp.watch('src/**/*.{png,jpg}', ['copy-images']);
   gulp.watch('src/**/*.js', ['build-js']);
   gulp.watch('src/scss/**/*.scss', ['build-css']);
   gulp.watch('build/**/*.html', browserSync.reload);
