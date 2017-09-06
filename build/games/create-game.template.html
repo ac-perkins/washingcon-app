@@ -1,6 +1,37 @@
 <form class='create-event' ng-submit='create.addEvent()'>
   <label>Game:</label><input type='text' class='form-control' ng-model='create.newEvent.name' placeholder='Name' required> <!-- TODO: Re add required! -->
-  <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required>
+  <!-- <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required> -->
+  <label>When:</label>
+  <md-datepicker ng-model="create.newEvent.date" md-placeholder="Enter date" md-open-on-focus ng-required="true"></md-datepicker>
+  <label>@</label>
+  <select  ng-model="create.newEvent.hour" required>
+    <option value="">hr</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+  <label>:</label>
+  <select ng-model="create.newEvent.minute" required>
+    <option value="">min</option>
+    <option value="00">00</option>
+    <option value="15">15</option>
+    <option value="30">30</option>
+    <option value="45">45</option>
+  </select>
+  <select ng-model="create.newEvent.ampm" ng-model-options="{updateOn: 'submit'}" required>
+    <option value="">am/pm</option>
+    <option value="AM">am</option>
+    <option value="PM" selected>pm</option>
+  </select>
   <label>Where:</label><input type='text' class='form-control' ng-model='create.newEvent.location' placeholder='Location' required>
   <!-- <label>Time:</label><input type="time" class='form-control' ng-model='create.newEvent.time' placeholder="HH:mm"> -->
   <!-- <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
