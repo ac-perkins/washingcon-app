@@ -26,7 +26,7 @@ body > section {
   padding: 20px 10px 10px;
   background-color: black;
   color: white;
-  font-size: 13px;
+  font-size: 0.8em;
   text-align: center;
 
   p {
@@ -57,9 +57,37 @@ footer {
   border: none;
   color: #fff;
   padding: 10px;
-  font-size: 15px;
+  font-size: 0.8em;
   border-radius: 6px;
   -webkit-box-shadow: 4px 2px 16px 0 #313131;
   box-shadow: 4px 2px 16px 0 #313131;
   min-width: 100px;
+}
+
+.game-list {
+  padding: 12px 15px;
+  margin: 0 15px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  li {
+    width: 100%;
+  }
+  .game-name {
+    font-size: 2em;
+    width: 80%;
+  }
+  .game-time {
+    width: 20%;
+    text-align: right;
+    font-size: 0.9em;
+  }
+  .game-location {
+    margin: 5px 0 0 15px;
+  }
+  .game-players {
+    margin: 5px 0 0 15px;
+    font-weight: bold;
+  }
 }
