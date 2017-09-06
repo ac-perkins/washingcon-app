@@ -28,6 +28,10 @@ gulp.task('copyHtml', function() {
   return gulp.src('src/**/*.html').pipe(gulp.dest('build'));
 });
 
+gulp.task('copy-images', function() {
+  return gulp.src('src/**/*.{png,jpg}').pipe(gulp.dest('build'));
+});
+
 // configure the jshint task
 gulp.task('jshint', function() {
   return gulp.src('src/**/*.js')
@@ -67,6 +71,7 @@ gulp.task('build', ['jshint', 'copyHtml', 'build-css', 'build-js']);
 gulp.task('watch', ['browserSync', 'build-css'], function() {
   gulp.watch('src/**/*.js', ['jshint']);
   gulp.watch('src/**/*.html', ['copyHtml']);
+  gulp.watch('src/**/*.{png,jpg}', ['copy-images']);
   gulp.watch('src/**/*.js', ['build-js']);
   gulp.watch('src/scss/**/*.scss', ['build-css']);
   gulp.watch('build/**/*.html', browserSync.reload);
