@@ -7,41 +7,46 @@
   <div class="form-group">
     <input type='text' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="eg. King of Tokyo" ng-model='create.newEvent.name' placeholder='Game Title' required>
   </div>
-  <div class="form-group">
-      <!-- <md-datepicker ng-model="create.newEvent.date" md-placeholder="Enter date" md-open-on-focus ng-required="true"></md-datepicker> -->
-      <select ng-model="create.newEvent.daySelect" ng-change="create.selectDay()" required>
-        <option value="2017, 9, 9">Sat</option>
-        <option value="2017, 9, 10">Sun</option>
-      </select>
-      <label>@</label>
-      <select  ng-model="create.newEvent.hour" required>
-        <option value="">hr</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-      </select>
-      <label>:</label>
-      <select ng-model="create.newEvent.minute" required>
-        <option value="">min</option>
-        <option value="00">00</option>
-        <option value="15">15</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-      </select>
-      <select ng-model="create.newEvent.ampm" ng-model-options="{updateOn: 'submit'}" required>
-        <option value="">am/pm</option>
-        <option value="AM">am</option>
-        <option value="PM" selected>pm</option>
-      </select>   </div>
+  <div class="form-group date-selects">
+    <div>
+      <div class="styler styler-daySelect">
+        <select ng-model="create.newEvent.daySelect" ng-change="create.selectDay()" required>
+          <option value="2017, 9, 9">Sat</option>
+          <option value="2017, 9, 10">Sun</option>
+        </select>
+      </div>
+      <div class="styler styler-hour">
+        <select  ng-model="create.newEvent.hour" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="styler styler-minute">
+        <select ng-model="create.newEvent.minute" required>
+          <option value="0">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
+      </div>
+      <div class="styler styler-ampm">
+        <select ng-model="create.newEvent.ampm" ng-model-options="{updateOn: 'submit'}" required>
+          <option value="AM">am</option>
+          <option value="PM" selected>pm</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div class="form-group">
     <input type='text' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="eg. Main Hall - Row G" ng-model='create.newEvent.location' placeholder='Where You Will Set Up' required>
   </div>

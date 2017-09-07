@@ -11,6 +11,15 @@
       this.singleGameEvents = EventsService.singleGameEvents;
       var that = this;
       this.newEvent = {daySelect: '2017, 9, 9'};
+      this.now = new Date(Date.now());
+      if (this.now.getHours() > 12) {
+        this.newEvent.hour = JSON.stringify(this.now.getHours() - 12);
+        this.newEvent.ampm = 'PM';
+      } else {
+        this.newEvent.hour = JSON.stringify(this.now.getHours());
+        this.newEvent.ampm = 'AM';
+      }
+      this.newEvent.minute = JSON.stringify(Math.floor(this.now.getMinutes()/15)*15);
       this.newEvent.date = new Date(this.newEvent.daySelect);
       this.errorMessage = '';
       EventsService.getAllEvents();
