@@ -2,7 +2,7 @@
     'use strict';
 
   angular
-    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap', 'ngMaterial', 'ngMessages'])
+    .module('washingcon-app',['firebase', 'ui.router', 'ngMaterial', 'ngMessages'])
     .config(appConfig);
 
   appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
