@@ -65,7 +65,7 @@ gulp.task('build-css', function () {
         }));
 });
 
-gulp.task('build', ['jshint', 'copyHtml', 'build-css', 'build-js']);
+gulp.task('build', ['jshint', 'copyHtml', 'copy-images', 'build-css', 'build-js']);
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', ['browserSync', 'build-css'], function() {
