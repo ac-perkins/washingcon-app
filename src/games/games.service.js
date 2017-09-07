@@ -22,7 +22,6 @@
         currentGamesRef: currentGamesRef,
         createEvent: createEvent,
         getAllEvents: getAllEvents,
-        // getSingleGameEvents: getSingleGameEvents,
         getEventObject: getEventObject,
         editEventObject: editEventObject,
         deleteEventObject: deleteEventObject
@@ -59,19 +58,6 @@
           });
       }
 
-      // function getSingleGameEvents(game) {
-      //   singleGameEvents = [];
-      //   return $firebaseArray(events).$loaded()
-      //     .then(function(x) {
-      //       x.forEach(function findEvent(each) {
-      //         if(each.game === game) {
-      //           singleGameEvents.push(each);
-      //         }
-      //       });
-      //       return singleGameEvents;
-      //     });
-      // }
-
       function getEventObject(eventId) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
         return $firebaseObject(gameObj).$loaded()
@@ -84,12 +70,13 @@
 
       function editEventObject(eventId, editedEvent) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
-        editedEvent.adjTime = new Date(editedEvent.adjTime).getTime();
+        editedEvent.time = new Date(editedEvent.time).getTime();
         console.log('editedEvent', editedEvent);
         return gameObj.update(
           {
             name: editedEvent.name,
             location: editedEvent.location,
+            daySelect: editedEvent.daySelect,
             hour: editedEvent.hour,
             adjHour: editedEvent.adjHour,
             minute: editedEvent.minute,
@@ -98,7 +85,7 @@
             month: editedEvent.month,
             year: editedEvent.year,
             ampm: editedEvent.ampm,
-            time: editedEvent.adjTime, 
+            time: editedEvent.time,
             players: editedEvent.players,
             notes: editedEvent.notes || '',
 

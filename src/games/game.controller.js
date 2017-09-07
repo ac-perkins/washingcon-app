@@ -20,6 +20,7 @@
             console.log(eventObj);
             that.game = eventObj;
             that.game.time = new Date(eventObj.time);
+            that.game.date = new Date(that.game.daySelect);
           })
           .catch(function(err) {
             console.log('catch error', err);
@@ -61,21 +62,26 @@
 
         this.wrongPin = '';
 
+        this.selectDay = function selectDay() {
+          var that = this;
+          that.game.date = new Date(that.game.daySelect);
+        };
+
         this.editEvent = function editEvent(game) {
           console.log('edit game', game);
           game.adjHour = Number(game.hour);
           game.adjMinute = Number(game.minute);
-          game.day = game.time.getDate();
-          game.month = game.time.getMonth();
-          game.year = game.time.getFullYear();
+          game.day = game.date.getDate();
+          game.month = game.date.getMonth();
+          game.year = game.date.getFullYear();
           if (game.ampm === 'PM' && game.adjHour !== 12) {
             game.adjHour = game.adjHour + 12;
           }
           if (game.ampm === 'AM' && game.adjHour === 12) {
             game.adjHour = 0;
           }
-          game.adjTime = new Date(game.year, game.month, game.day, game.adjHour, game.adjMinute);
-          game.adjTime = game.adjTime.toString();
+          game.time = new Date(game.year, game.month, game.day, game.adjHour, game.adjMinute);
+          game.time = game.time.toString();
 
           return EventsService.editEventObject(game.$id, game)
             .then(function(ref) {

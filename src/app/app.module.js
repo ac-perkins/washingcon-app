@@ -2,7 +2,7 @@
     'use strict';
 
   angular
-    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap', 'ngMaterial', 'ngMessages', 'angularjs-datetime-picker'])
+    .module('washingcon-app',['firebase', 'ui.router', 'ui.bootstrap', 'ngMaterial', 'ngMessages'])
     .config(appConfig);
 
   appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];

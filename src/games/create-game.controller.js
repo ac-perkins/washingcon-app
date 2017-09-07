@@ -49,7 +49,6 @@
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
             console.log(that.newEvent);
-            console.log('mytime', $scope.mytime);
             console.log('in promise', ref);
             $state.go('home');
           })
