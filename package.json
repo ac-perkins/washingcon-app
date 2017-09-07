@@ -26,6 +26,7 @@
     "jshint-stylish": "^2.2.1"
   },
   "dependencies": {
+    "gulp": "^3.9.1",
     "gulp-cli": "^1.4.0"
   }
 }
