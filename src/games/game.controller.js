@@ -18,9 +18,7 @@
         EventsService.getEventObject($stateParams.id)
           .then(function(eventObj) {
             console.log(eventObj);
-
             that.game = eventObj;
-            that.game.time = new Date(eventObj.time);
           })
           .catch(function(err) {
             console.log('catch error', err);
@@ -64,21 +62,6 @@
 
         this.editEvent = function editEvent(game) {
           console.log('edit game', game);
-          game.adjHour = Number(game.hour);
-          game.adjMinute = Number(game.minute);
-          game.day = game.time.getDate();
-          game.month = game.time.getMonth();
-          game.year = game.time.getFullYear();
-          if (game.ampm === 'PM' && game.adjHour !== 12) {
-            game.adjHour = game.adjHour + 12;
-          }
-          if (game.ampm === 'AM' && game.adjHour === 12) {
-            game.adjHour = 0;
-          }
-
-          game.adjTime = new Date(game.year, game.month, game.day, game.adjHour, game.adjMinute);
-          game.adjTime = game.adjTime.toString();
-
           return EventsService.editEventObject(game.$id, game)
             .then(function(ref) {
               // console.log('that.editAreYouSure', that.editAreYouSure);
