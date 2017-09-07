@@ -54,7 +54,7 @@
         return $firebaseArray(database).$loaded()
           .then(function(x) {
             allEvents = x;
-            console.log(allEvents);
+            // console.log(allEvents);
             return allEvents;
           });
       }
