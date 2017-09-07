@@ -75,6 +75,7 @@ ul.ng-scope {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  animation: fadein .5s 1;
 
   li {
     width: 100%;
@@ -96,6 +97,15 @@ ul.ng-scope {
   .game-players {
     margin: 5px 0 0 15px;
     font-weight: bold;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    background-color: #000000;
+  }
+  100% {
+    background-color: #FFFFFF;
   }
 }
 
