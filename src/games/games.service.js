@@ -10,7 +10,7 @@
 
       var database = firebase.database().ref().child('games');  // Reference to the set of 'games' data on Firebase
       var admin = firebase.database().ref().child('admin');
-      var timeWindow = new Date().getTime() - 1200000;  // Creates a Date object that is set 20 minutes in the past
+      var timeWindow = new Date().getTime() - 900000;  // Creates a Date object that is set 15 minutes in the past
       var currentGamesRef = firebase.database().ref().child('games').orderByChild('time').startAt(timeWindow);  // Retrieves list of games, ordered by start time, going back 20 minutes
       var allEvents = [];
       var singleGameEvents = [];
