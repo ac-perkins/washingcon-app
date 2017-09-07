@@ -10,13 +10,24 @@
 
       this.singleGameEvents = EventsService.singleGameEvents;
       var that = this;
-      this.newEvent = {};
-      this.newEvent.date = new Date();
+      this.newEvent = {daySelect: '2017, 9, 9'};
+      this.now = new Date(Date.now());
+      if (this.now.getHours() > 12) {
+        this.newEvent.hour = JSON.stringify(this.now.getHours() - 12);
+        this.newEvent.ampm = 'PM';
+      } else {
+        this.newEvent.hour = JSON.stringify(this.now.getHours());
+        this.newEvent.ampm = 'AM';
+      }
+      this.newEvent.minute = JSON.stringify(Math.floor(this.now.getMinutes()/15)*15);
+      this.newEvent.date = new Date(this.newEvent.daySelect);
       this.errorMessage = '';
-      // console.log('this.errorMessage');
-      // console.log(EventsService.database);
       EventsService.getAllEvents();
 
+      this.selectDay = function selectDay() {
+        var that = this;
+        that.newEvent.date = new Date(this.newEvent.daySelect);
+      };
 
       this.addEvent = function addEvent() {
         // that.newEvent.time = that.newEvent.time.toString();
@@ -32,7 +43,7 @@
           that.newEvent.adjHour = 0;
         }
 
-        that.newEvent.time = new Date(that.newEvent.year, that.newEvent.month, that.newEvent.day, that.newEvent.adjHour, that.newEvent.adjMinute); 
+        that.newEvent.time = new Date(that.newEvent.year, that.newEvent.month, that.newEvent.day, that.newEvent.adjHour, that.newEvent.adjMinute);
         that.newEvent.time = that.newEvent.time.toString();
         console.log('after string', that.newEvent.time);
         return EventsService.createEvent(that.newEvent)

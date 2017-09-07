@@ -74,10 +74,9 @@
           if (game.ampm === 'AM' && game.adjHour === 12) {
             game.adjHour = 0;
           }
-
           game.adjTime = new Date(game.year, game.month, game.day, game.adjHour, game.adjMinute);
           game.adjTime = game.adjTime.toString();
-          
+
           return EventsService.editEventObject(game.$id, game)
             .then(function(ref) {
               // console.log('that.editAreYouSure', that.editAreYouSure);
