@@ -34,6 +34,34 @@
     <!-- <label>When:</label><input type='text' class='form-control' ng-model='game.date' ng-model-options="{updateOn: 'submit'}" required placeholder='Location'> -->
     <!-- <div uib-timepicker ng-model="game.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
     <label>When:</label><input datetime-picker timedate-formatter ng-model="gc.game.time" required>
+    <label>When:</label>
+    <md-datepicker ng-model="gc.game.time" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+    <label>@</label>
+    <select ng-model="gc.game.hour" required>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+    <label>:</label>
+    <select ng-model="gc.game.minute" required>
+      <option value="00">00</option>
+      <option value="15">15</option>
+      <option value="30">30</option>
+      <option value="45">45</option>
+    </select>
+    <select ng-model="gc.game.ampm" ng-model-options="{updateOn: 'submit'}" required>
+      <option value="AM">AM</option>
+      <option value="PM" selected>PM</option>
+    </select> 
     <!-- <label>When:</label><input type="datetime-local" ng-model="game.time" required> -->
     <label>Where:</label><input type="text" class='form-control' ng-model='gc.game.location' ng-model-options="{updateOn: 'submit'}" required>
     <label>Players needed:</label><input type='number' class='form-control' ng-model='gc.game.players' ng-model-options="{updateOn: 'submit'}" required>
