@@ -2,7 +2,7 @@
 <html lang='en' ng-app='washingcon-app'>
   <head>
     <meta charset='utf-8'>
-    <title>WashingCon Game Finder</title>
+    <title>Washingcon Game Finder</title>
 
     <meta name='description' content=''>
     <meta name='author' content='Alex Perkins'>
@@ -10,8 +10,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="assets/css/ui-bootstrap-custom-2.5.0-csp.css">
-    <link rel="stylesheet" href="assets/css/angularjs-datetime-picker.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/ui-bootstrap-custom-2.5.0-csp.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/angularjs-datetime-picker.css"> -->
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
@@ -19,13 +20,17 @@
       <img src="images/GameFinder.png" alt="WashingCon Logo">
     </header>
 
+    <section>
+      <p>Need players? Create a game, it will appear on the list and then people can find you.</p>
+      <p>Looking to join a game? The available games and start times are below.</p>
+    </section>
+
     <ui-view></ui-view>
 
     <footer>
       <img src="images/FlagForCorner.png" alt="WashingCon Flag">
     </footer>
 
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script>
       // Initialize Firebase
@@ -40,6 +45,11 @@
       firebase.initializeApp(config);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.6/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+
     <script src="assets/vendor/ui-bootstrap-custom-2.5.0.min.js"></script>
     <script src="assets/vendor/ui-bootstrap-custom-tpls-2.5.0.min.js"></script>
     <script src="assets/vendor/angularjs-datetime-picker.min.js"></script>
