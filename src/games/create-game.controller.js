@@ -12,8 +12,8 @@
       var that = this;
       this.newEvent = null;
       this.errorMessage = '';
-      console.log('this.errorMessage');
-      console.log(EventsService.database);
+      // console.log('this.errorMessage');
+      // console.log(EventsService.database);
       EventsService.getAllEvents();
 
 
@@ -32,6 +32,19 @@
             that.errorMessage = 'The server is not responding. Please try again shortly.';
           });
       };
+
+      this.inputListener = function inputListener() {
+        $('input').focus(function() {
+          $(this).attr('datamainplaceholder', $(this).attr('placeholder'));
+          $(this).attr('placeholder', $(this).attr('dataaltplaceholder'));
+        })
+        .blur(function() {
+          $(this).attr('dataaltplaceholder', $(this).attr('placeholder'));
+          $(this).attr('placeholder', $(this).attr('datamainplaceholder'));
+        });
+      };
+
+      this.inputListener();
 
     }
 

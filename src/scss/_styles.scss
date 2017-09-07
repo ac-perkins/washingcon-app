@@ -48,10 +48,14 @@ footer {
   }
 }
 
+ul.ng-scope {
+  margin-bottom: 110px;
+}
+
 .nav-button {
   font-family: Montserrat,sans-serif;
   position: fixed;
-  bottom: 80px;
+  bottom: 40px;
   right: 30px;
   background-color: #233284;
   border: none;
@@ -90,4 +94,44 @@ footer {
     margin: 5px 0 0 15px;
     font-weight: bold;
   }
+}
+
+.form-group {
+  margin: 15px 30px;
+  text-align: center;
+
+  label {
+    display: none;
+  }
+  input {
+    width: 85%;
+    margin-top: 5px;
+    border: none;
+    border-bottom: 1px dashed #233284;
+    text-align: right;
+    padding: 10px 30px 5px 0;
+    font-size: 1.1em;
+    height: 25px;
+
+    &:focus {
+      outline: none;
+      text-align: left;
+    }
+  }
+}
+
+.create-game-button {
+  font-family: Montserrat,sans-serif;
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  background-color: #0c7d0b;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  font-size: 0.8em;
+  border-radius: 6px;
+  -webkit-box-shadow: 4px 2px 16px 0 #313131;
+  box-shadow: 4px 2px 16px 0 #313131;
+  min-width: 100px;
 }
