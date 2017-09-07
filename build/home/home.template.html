@@ -1,7 +1,7 @@
 <ul>
   <section class="game-list" ng-repeat='game in home.games' ui-sref='viewGame({id: game.$id})'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
     <li>Game: {{game.name}}</li>
-    <li>When: {{game.time | date:'short'}}</li>
+    <li>When: {{game.time | date:'EEE, h:mm a'}}</li>
     <li>Where: {{game.location}}</li>
     <li>Players needed: {{game.players}}</li>
     <!-- <li>{{game.pin}}</li> -->
