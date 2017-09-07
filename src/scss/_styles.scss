@@ -75,7 +75,7 @@ ul.ng-scope {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  animation: fadein .5s 1;
+  animation: fadein .8s 1;
 
   li {
     width: 100%;
@@ -102,7 +102,7 @@ ul.ng-scope {
 
 @keyframes fadein {
   0% {
-    background-color: #000000;
+    background-color: #233284;
   }
   100% {
     background-color: #FFFFFF;
