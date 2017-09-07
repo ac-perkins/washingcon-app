@@ -8,7 +8,11 @@
     <input type='text' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="eg. King of Tokyo" ng-model='create.newEvent.name' placeholder='Game Title' required>
   </div>
   <div class="form-group">
-      <md-datepicker ng-model="create.newEvent.date" md-placeholder="Enter date" md-open-on-focus ng-required="true"></md-datepicker> 
+      <!-- <md-datepicker ng-model="create.newEvent.date" md-placeholder="Enter date" md-open-on-focus ng-required="true"></md-datepicker> -->
+      <select ng-model="create.newEvent.daySelect" ng-change="create.selectDay()" required>
+        <option value="2017, 9, 9">Sat</option>
+        <option value="2017, 9, 10">Sun</option>
+      </select>
       <label>@</label>
       <select  ng-model="create.newEvent.hour" required>
         <option value="">hr</option>
