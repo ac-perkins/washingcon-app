@@ -1,5 +1,17 @@
 body {
   background-color: white;
+  animation: dissolvein .6s ease 1;
+}
+
+button:active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #5d5d5d;
+  opacity: 0.4;
 }
 
 :focus {
@@ -13,7 +25,8 @@ header {
   img {
     width: 95%;
     display: block;
-    margin: 15px auto 0;
+    margin: auto;
+    padding: 15px 0 0;
   }
 
   ul {
@@ -84,7 +97,7 @@ ul.ng-scope {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  animation: fadein .8s 1;
+  animation: fadein .6s ease 1;
   position: relative;
 
   li {
@@ -120,10 +133,21 @@ ul.ng-scope {
 
 @keyframes fadein {
   0% {
+    opacity: 0;
     background-color: #233284;
   }
   100% {
-    background-color: #FFFFFF;
+    opacity: 1;
+    background-color: white;
+  }
+}
+
+@keyframes dissolvein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -167,7 +191,8 @@ ul.ng-scope {
 }
 
 .create-event {
-  margin-bottom: 160px;
+  padding-bottom: 250px;
+  animation: dissolvein .6s ease 1;
 }
 
 .date-selects {
@@ -218,6 +243,7 @@ ul.ng-scope {
 .game-listing {
   margin: 20px 10px 10px;
   text-align: center;
+  animation: dissolvein .6s ease 1;
 
   .game-name {
     text-align: center;
@@ -240,7 +266,7 @@ ul.ng-scope {
   font-family: Montserrat,sans-serif;
   position: fixed;
   bottom: 90px;
-  right: 30px;
+  right: 50px;
   background-color: #2a77a7;
   border: none;
   color: #fff;
@@ -291,8 +317,8 @@ ul.ng-scope {
 
     button {
       font-family: Montserrat,sans-serif;
-      position: fixed;
-      bottom: 90px;
+      position: absolute;
+      bottom: 20px;
       right: 130px;
       background-color: #CB2027;
       border: none;
@@ -310,7 +336,6 @@ ul.ng-scope {
     }
 
     .edit-game-save {
-      bottom: 90px;
       right: 30px;
       background-color: #0c7d0b;
     }
