@@ -4,12 +4,12 @@
 </section>
 
 <ul>
-  <section class="game-list" ng-repeat='game in home.games' ui-sref='viewGame({id: game.$id})'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
+  <section class="game-list" ng-repeat='game in home.games'>  <!-- ui-sref='viewGame({ id: game.$id })' -->
     <li class="game-name">{{game.name}}</li>
     <li class="game-time">{{game.time | date:'EEE, h:mm a'}}</li>
     <li class="game-location">Location: {{game.location}}</li>
     <li class="game-players">We need {{game.players}} player(s).</li>
-    <!-- <li>{{game.pin}}</li> -->
+    <button class="details" ui-sref='viewGame({id: game.$id})'>Details</button>
   </section>
 </ul>
 <button class="nav-button" ui-sref='createGame'>Create<br>Game</button>

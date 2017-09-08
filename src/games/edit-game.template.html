@@ -2,16 +2,58 @@
 <p><span class='game-title'>{{es.event.name}}</span></p>
 
 <form class='create-event' ng-submit='es.editEvent()'>
-  <label>Event name:</label><input type='text' class='form-control' ng-model='es.event.name' ng-model-options="{updateOn: 'submit'}" required placeholder='Name'>
-  <label>Location:</label><input type='text' class='form-control' ng-model='es.event.location' required placeholder='Location'>
-  <label>Date:</label><input type="text" class='form-control' ng-model='es.event.date' required>
-  <label>Stream Url:</label><input type='text' class='form-control' ng-model='es.event.stream' placeholder='Event stream'>
-  <label>Website:</label><input type='text' class='form-control' ng-model='es.event.website' placeholder='Event website'>
-  <label>Twitter:</label><input type='text' class='form-control' ng-model='es.event.twitter' placeholder='Event twitter'>
-  <label>Game:</label>
-    <select name='select-game' class='form-control' ng-model='es.event.game' required>
-      <option ng-repeat='game in es.gameList | orderBy: "name"' value='{{game.name}}'>{{game.name}}</option>
-    </select>
+  <div class="form-group">
+    <input type='text' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="eg. King of Tokyo" ng-model='es.event.name' placeholder='Game Title' required>
+  </div>
+  <div class="form-group date-selects">
+    <div>
+      <div class="styler styler-daySelect">
+        <select ng-model="es.event.daySelect" ng-change="create.selectDay()" required>
+          <option value="2017, 9, 9">Sat</option>
+          <option value="2017, 9, 10">Sun</option>
+        </select>
+      </div>
+      <div class="styler styler-hour">
+        <select  ng-model="es.event.hour" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="styler styler-minute">
+        <select ng-model="es.event.minute" required>
+          <option value="0">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
+      </div>
+      <div class="styler styler-ampm">
+        <select ng-model="es.event.ampm" ng-model-options="{updateOn: 'submit'}" required>
+          <option value="AM">am</option>
+          <option value="PM" selected>pm</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type='text' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="eg. Main Hall - Row G" ng-model='es.event.location' placeholder='Where You Will Set Up' required>
+  </div>
+  <div class="form-group">
+    <input type="text" class='form-control' dataMainPlaceholder="" dataAltPlaceholder="(Number of players needed)" ng-model='es.event.players' placeholder="Open Spots" required>
+  </div>
+  <div class="form-group">
+    <input type="tel" class='form-control' dataMainPlaceholder="" dataAltPlaceholder="(So you can edit this entry later)" ng-model='es.event.pin' min="4" max="8" placeholder="4 - 8 Digit PIN">
+  </div>
   <button class='btn btn-default'>Edit this Event</button>
   <button class='btn btn-default' type='button' ng-click='es.cancelEdit()'>Cancel</button>
   <button class='btn btn-default' type='button' ng-click='es.deleteEvent()'>Delete Event</button>

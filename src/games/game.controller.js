@@ -51,14 +51,18 @@
         };
 
         this.editCheck = function editCheck(gameId, pin) {
-          if (this.editPin !== pin && this.editPin !== '8008135') {
-            this.wrongPin = 'You have entered an incorrect PIN. Please try again.';
-            console.log("wrong pin", this.editPin, pin);
+          var pinToNum = parseInt(pin);
+          if (this.editPin !== pinToNum && this.editPin !== '8008135') {
+            this.wrongPin = 'Incorrect PIN';
+            console.log("wrong pin", this.editPin, pinToNum);
           } else {
             this.validEditCheck = true;
           }
         };
 
+        this.saveEdits = function saveEdits() {
+          this.validEditCheck = false;
+        };
 
         this.wrongPin = '';
 

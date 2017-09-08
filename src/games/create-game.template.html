@@ -9,12 +9,14 @@
   </div>
   <div class="form-group date-selects">
     <div>
+
       <div class="styler styler-daySelect">
         <select ng-model="create.newEvent.daySelect" ng-change="create.selectDay()" required>
           <option value="2017, 9, 9">Sat</option>
           <option value="2017, 9, 10">Sun</option>
         </select>
       </div>
+
       <div class="styler styler-hour">
         <select  ng-model="create.newEvent.hour" required>
           <option value="1">1</option>
@@ -31,6 +33,7 @@
           <option value="12">12</option>
         </select>
       </div>
+
       <div class="styler styler-minute">
         <select ng-model="create.newEvent.minute" required>
           <option value="0">00</option>
@@ -39,12 +42,14 @@
           <option value="45">45</option>
         </select>
       </div>
+
       <div class="styler styler-ampm">
         <select ng-model="create.newEvent.ampm" ng-model-options="{updateOn: 'submit'}" required>
           <option value="AM">am</option>
           <option value="PM" selected>pm</option>
         </select>
       </div>
+
     </div>
   </div>
   <div class="form-group">
@@ -56,14 +61,6 @@
   <div class="form-group">
     <input type="tel" class='form-control' dataMainPlaceholder="" dataAltPlaceholder="(So you can edit this entry later)" ng-model='create.newEvent.pin' min="4" max="8" placeholder="4 - 8 Digit PIN">
   </div>
-  <!-- <div class="form-group">
-    <label>Notes:</label>
-    <textarea type="text" class='form-control' dataMainPlaceholder="" dataAltPlaceholder="" ng-model='create.newEvent.notes'></textarea>
-  </div> -->
-  <!-- <label>Time:</label><input type="time" class='form-control' ng-model='create.newEvent.time' placeholder="HH:mm"> -->
-  <!-- <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
-  <!-- <label>When:</label><input type="datetime-local" ng-model="create.newEvent.time" required> -->
-  <!-- <label>When:</label><input datetime-picker ng-model="create.newEvent.time" required> -->
   <button class="create-game-button">Create New Game</button>
 </form>
 
