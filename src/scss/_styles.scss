@@ -1,3 +1,7 @@
+body {
+  background-color: white;
+}
+
 :focus {
   outline: none;
   box-shadow: 0 0 3px 0px #233284;
@@ -218,13 +222,56 @@ ul.ng-scope {
   .game-name {
     text-align: center;
     font-size: 2.5em;
+    border-bottom: solid 1px grey;
+    padding-bottom: 15px;
   }
   .game-time, .game-location {
-    margin: 30px 20px 0px;
+    margin: 20px 20px 0px;
     display: inline-block;
     font-size: 1.3em;
   }
   .game-players {
     margin: 50px 20px 0px;
+    font-size: 1.5em;
+  }
+}
+
+.edit-button {
+  font-family: Montserrat,sans-serif;
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  background-color: #2a77a7;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  font-size: 0.8em;
+  border-radius: 6px;
+  -webkit-box-shadow: 4px 2px 16px 0 #313131;
+  box-shadow: 4px 2px 16px 0 #313131;
+  min-width: 80px;
+}
+
+.delete-event {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  bottom: 20px;
+
+  p {
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
+    color: #CB2027;
+    margin-top: 7px;
+  }
+
+  input {
+    border: none;
+    border-bottom: 1px solid #2a77a7;
+    text-align: center;
+    font-size: 2em;
+    width: 50%;
   }
 }

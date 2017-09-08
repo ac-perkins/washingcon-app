@@ -12,25 +12,18 @@
 <!-- <button>Edit Game</button>
 <button ng-click='gc.deleteEvent()'>Delete Game</button> -->
 
-<button ng-click='gc.askEditPost(); $event.stopPropagation();'>Edit</button>
-<button ng-click='gc.askDeletePost(); $event.stopPropagation();'>Delete</button>
+<button class="edit-button" ng-click='gc.askEditPost(); $event.stopPropagation();'>Edit</button>
+<!-- <button ng-click='gc.askDeletePost(); $event.stopPropagation();'>Delete</button> -->
 
+<form class="delete-event" ng-show="gc.editAreYouSure" action="" ng-submit="gc.editCheck(gc.game.$id, gc.game.pin)">
+  <input type='number' ng-model='gc.editPin' placeholder="Enter PIN">
+  <p ng-show='gc.wrongPin'>{{gc.wrongPin}}</p>
+</form>
 
 <div ng-show="gc.editAreYouSure">
-  <div class="modal-bg"></div>
-  <form class="delete-event">
-    <p>Please enter this games's PIN to edit it.</p>
-    <input type='tel' ng-model='gc.editPin'>
-    <p ng-show='gc.wrongPin'>{{gc.wrongPin}}</p>
-    <button ng-click='gc.editCheck(gc.game.$id, gc.game.pin)' type='submit'>Edit</button>
-    <button ng-click='gc.doNotDeletePost(); gc.more[$index] = !gc.more[$index]' type='button'>Go Back</button>
-  </form>
-
   <form class='edit-event' ng-show='gc.validEditCheck' ng-submit='gc.editEvent(gc.game)'>
-    <label>Game:</label><input type='text' class='form-control' ng-model='gc.game.name' ng-model-options="{updateOn: 'submit'}" required placeholder='Name'>
-    <!-- <label>When:</label><input type='text' class='form-control' ng-model='game.date' ng-model-options="{updateOn: 'submit'}" required placeholder='Location'> -->
-    <!-- <div uib-timepicker ng-model="game.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div> -->
-    <!-- <label>When:</label><input datetime-picker timedate-formatter ng-model="gc.game.time" required> -->
+    <label>Game:</label>
+    <input type='text' class='form-control' ng-model='gc.game.name' ng-model-options="{updateOn: 'submit'}" required placeholder='Name'>
     <label>When:</label>
     <div class="styler styler-daySelect">
       <select ng-model="gc.game.daySelect" ng-change="gc.selectDay()" required>
