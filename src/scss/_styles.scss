@@ -1,10 +1,15 @@
+:focus {
+  outline: none;
+  box-shadow: 0 0 3px 0px #233284;
+}
+
 header {
   font-family: 'Montserrat', sans-serif;
 
   img {
     width: 95%;
     display: block;
-    margin: auto;
+    margin: 15px auto 0;
   }
 
   ul {
@@ -76,6 +81,7 @@ ul.ng-scope {
   justify-content: space-around;
   flex-wrap: wrap;
   animation: fadein .8s 1;
+  position: relative;
 
   li {
     width: 100%;
@@ -97,6 +103,14 @@ ul.ng-scope {
   .game-players {
     margin: 5px 0 0 15px;
     font-weight: bold;
+  }
+  .details {
+    border: solid #233284 1px;
+    background: white;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    border-radius: 3px;
   }
 }
 
