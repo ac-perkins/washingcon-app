@@ -18,6 +18,10 @@
         EventsService.getEventObject($stateParams.id)
           .then(function(eventObj) {
             console.log(eventObj);
+            if (!eventObj.name) {
+              $state.go('home');
+            }
+
             that.game = eventObj;
             that.game.time = new Date(eventObj.time);
             that.game.date = new Date(that.game.daySelect);
@@ -51,10 +55,10 @@
         };
 
         this.editCheck = function editCheck(gameId, pin) {
-          var pinToNum = parseInt(pin);
-          if (this.editPin !== pinToNum && this.editPin !== '8008135') {
+          // var pinToNum = parseInt(pin);
+          if (this.editPin !== pin && this.editPin !== '8008135') {
             this.wrongPin = 'Incorrect PIN';
-            console.log("wrong pin", this.editPin, pinToNum);
+            console.log("wrong pin", this.editPin, pin);
           } else {
             this.validEditCheck = true;
           }
@@ -94,7 +98,12 @@
               that.validEditCheck = false;
               // console.log('that.editAreYouSure', that.editAreYouSure);
               console.log('in editEvent promise', ref);
-              $state.go('viewGame({id: game.$id})');
+              $state.transitionTo($state.current, $stateParams, {
+                reload: true,
+                inherit: false,
+                notify: true
+              });
+              console.log('reloaded');
             })
             .catch(function(err) {
               console.log('catch error', err);
