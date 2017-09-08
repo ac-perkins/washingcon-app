@@ -275,3 +275,44 @@ ul.ng-scope {
     width: 50%;
   }
 }
+
+.edit-game {
+  .edit-event {
+    z-index: 2;
+    padding-top: 10%;
+
+    h1 {
+      text-align: left;
+      font-size: 2em;
+      padding: 0 0 10px 20px;
+      margin: 0 10px;
+      border-bottom: black solid 1px;
+    }
+
+    button {
+      font-family: Montserrat,sans-serif;
+      position: fixed;
+      bottom: 90px;
+      right: 130px;
+      background-color: #CB2027;
+      border: none;
+      color: #fff;
+      padding: 10px;
+      font-size: 0.8em;
+      border-radius: 6px;
+      -webkit-box-shadow: 4px 2px 16px 0 #313131;
+      box-shadow: 4px 2px 16px 0 #313131;
+      min-width: 80px;
+    }
+
+    .form-group {
+      margin: 15px 30px 0;
+    }
+
+    .edit-game-save {
+      bottom: 90px;
+      right: 30px;
+      background-color: #0c7d0b;
+    }
+  }
+}

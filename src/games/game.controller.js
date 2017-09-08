@@ -60,6 +60,9 @@
           }
         };
 
+        this.saveEdits = function saveEdits() {
+          this.validEditCheck = false;
+        };
 
         this.wrongPin = '';
 
