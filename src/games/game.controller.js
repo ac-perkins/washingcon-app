@@ -60,9 +60,9 @@
           }
         };
 
-        this.saveEdits = function saveEdits() {
-          this.validEditCheck = false;
-        };
+        // this.saveEdits = function saveEdits() {
+        //   this.validEditCheck = false;
+        // };
 
         this.wrongPin = '';
 
@@ -91,6 +91,7 @@
             .then(function(ref) {
               // console.log('that.editAreYouSure', that.editAreYouSure);
               that.editAreYouSure = false;
+              that.validEditCheck = false;
               // console.log('that.editAreYouSure', that.editAreYouSure);
               console.log('in editEvent promise', ref);
               $state.go('viewGame({id: game.$id})');
@@ -103,10 +104,6 @@
 
         this.deleteEvent = function deleteEvent(gameId, pin) {
           console.log(pin);
-          if (that.deletePin !== pin && that.deletePin !== '8008135') {
-            that.wrongPin = 'You have entered an incorrect PIN. Please try again.';
-            console.log("wrong pin", that.deletePin);
-          } else {
 
           return EventsService.deleteEventObject(gameId)
             .then(function(ref) {
@@ -119,7 +116,7 @@
               console.log('catch error', err);
               that.errorMessage = 'The server is not responding. Please try again shortly.';
             });
-          }
+
 
         };
 
