@@ -18,12 +18,6 @@
       controller: 'HomeController',
       controllerAs: 'home'
     })
-    // .state('events', {
-    //   url: '/events/:id',
-    //   templateUrl: 'events/events.template.html',
-    //   controller: 'EventsController',
-    //   controllerAs: 'events'
-    // })
     .state('createGame', {
       url: '/create',
       templateUrl: 'games/create-game.template.html',
@@ -36,13 +30,6 @@
       controller: 'GameController',
       controllerAs: 'gc'
     });
-    // .state('editAllEvents', {
-    //   url: '/event/edit',
-    //   templateUrl: 'events/edit-all-events.template.html',
-    //   controller: 'EditEventController',
-    //   controllerAs: 'edit'
-    // });
-
   }
 
 })();
