@@ -13,23 +13,21 @@
 <!-- <button>Edit Game</button>
 <button ng-click='gc.deleteEvent()'>Delete Game</button> -->
 
-<button class="edit-button" ng-click='gc.askEditPost(); $event.stopPropagation();'><span>Edit</span></button>
+<button class="edit-button" ng-click='gc.askEditPost();'><span>Edit</span></button>
 <!-- <button ng-click='gc.askDeletePost(); $event.stopPropagation();'>Delete</button> -->
 
-<div ng-show="gc.editAreYouSure" class="ask-delete" ng-click='$event.stopPropagation();'>
+<div ng-show="gc.editAreYouSure" class="ask-delete">
   <div class="modal-bg-edit"></div>
   <form class="delete-event" ng-show="gc.editAreYouSure" action="" ng-submit="gc.editCheck(gc.game.$id, gc.game.pin)">
 
-    <input type='number' ng-model='gc.editPin' placeholder="Enter PIN">
+    <input type='tel' ng-model='gc.editPin' placeholder="Enter PIN">
     <p ng-show='gc.wrongPin'>{{gc.wrongPin}}</p>
     <div class="edit-button-wrapper">
       <button class="edit-game-save"><span>Go</span></button>
       <button class="edit-game-cancel" type='button' ng-click='gc.doNotEditPost(); !gc.editAreYouSure'><span>Cancel</span></button>
     </div>
 
-
   </form>
-
 </div>
 
 <div ng-show="gc.validEditCheck" class="edit-game">
@@ -82,7 +80,7 @@
       <input type="text" class='form-control' dataMainPlaceholder="" dataAltPlaceholder="eg. Main Hall - Row G" ng-model='gc.game.location' ng-model-options="{updateOn: 'submit'}" placeholder='Where You Will Set Up' required>
     </div>
     <div class="form-group">
-      <input type='text' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="(Number of players needed)" ng-model='gc.game.players' ng-model-options="{updateOn: 'submit'}" placeholder="Open Spots" required>
+      <input type='tel' class='form-control' dataMainPlaceholder="" dataAltPlaceholder="(Number of players needed)" ng-model='gc.game.players' ng-model-options="{updateOn: 'submit'}" placeholder="Open Spots" required>
     </div>
     <button class="edit-game-save"><span>Save</span></button>
     <button class="edit-game-cancel" type='button' ng-click='gc.doNotEditPost(); !gc.editAreYouSure'><span>Cancel</span></button>
