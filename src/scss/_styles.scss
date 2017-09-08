@@ -330,8 +330,8 @@ ul.ng-scope {
       font-family: Montserrat,sans-serif;
       position: absolute;
       bottom: 20px;
-      right: 130px;
-      background-color: #CB2027;
+      right: 10px;
+      background-color: #000000;
       border: none;
       color: #fff;
       padding: 10px;
@@ -347,8 +347,13 @@ ul.ng-scope {
     }
 
     .edit-game-save {
-      right: 30px;
+      right: 190px;
       background-color: #0c7d0b;
+    }
+
+    .edit-game-delete {
+      right: 100px;
+      background-color: #CB2027;
     }
   }
 }
