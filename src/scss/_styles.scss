@@ -43,6 +43,15 @@ header {
   }
 }
 
+span {
+  pointer-events: none;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
 ui-view > section {
   font-family: 'Montserrat', sans-serif;
   padding: 20px 10px 10px;
@@ -216,6 +225,8 @@ ul.ng-scope {
     border: none;
     font-family: Montserrat,sans-serif;
     color: #757575;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
     option {
       font-family: Montserrat,sans-serif;
@@ -233,7 +244,7 @@ ul.ng-scope {
       border: 4px solid transparent;
       border-top: 8px solid #757575;
       position: absolute;
-      right: 0;
+      right: -5px;
       top: 50%;
       pointer-events: none;
     }
