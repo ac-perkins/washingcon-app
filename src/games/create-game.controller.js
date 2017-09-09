@@ -45,11 +45,11 @@
 
         that.newEvent.time = new Date(that.newEvent.year, that.newEvent.month, that.newEvent.day, that.newEvent.adjHour, that.newEvent.adjMinute);
         that.newEvent.time = that.newEvent.time.toString();
-        console.log('after string', that.newEvent.time);
+        // console.log('after string', that.newEvent.time);
         return EventsService.createEvent(that.newEvent)
           .then(function handlePromise(ref) {
-            console.log(that.newEvent);
-            console.log('in promise', ref);
+            // console.log(that.newEvent);
+            // console.log('in promise', ref);
             $state.go('home');
           })
           .catch(function handleError(err) {

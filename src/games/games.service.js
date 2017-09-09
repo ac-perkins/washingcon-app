@@ -33,9 +33,9 @@
 
         return $firebaseArray(database).$add(newGame)
           .then(function(ref) {
-            console.log('ref', ref);
+            // console.log('ref', ref);
             var id = ref.key;
-            console.log("added record with id " + id);
+            // console.log("added record with id " + id);
             return id;
           });
       }
@@ -63,7 +63,7 @@
         return $firebaseObject(gameObj).$loaded()
           .then(function(obj) {
             obj.time = new Date(obj.time);
-            console.log('$firebaseObject', obj);
+            // console.log('$firebaseObject', obj);
             return obj;
           });
       }
@@ -71,7 +71,7 @@
       function editEventObject(eventId, editedEvent) {
         var gameObj = firebase.database().ref().child("games/" + eventId);
         editedEvent.time = new Date(editedEvent.time).getTime();
-        console.log('editedEvent', editedEvent);
+        // console.log('editedEvent', editedEvent);
         return gameObj.update(
           {
             name: editedEvent.name,
@@ -99,7 +99,7 @@
         var gameObj = firebase.database().ref().child("games/" + eventId);
         return $firebaseObject(gameObj).$remove()
           .then(function(ref) {
-            console.log(ref);
+            // console.log(ref);
             return ref;
           });
       }

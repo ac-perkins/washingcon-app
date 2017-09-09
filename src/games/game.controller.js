@@ -8,7 +8,7 @@
       GameController.$inject = ['$scope', '$state', '$stateParams', 'EventsService'];
       function GameController($scope, $state, $stateParams, EventsService) {
 
-        console.log('in Game Controller');
+        // console.log('in Game Controller');
         var that = this;
         this.event = null;
         this.errorMessage = '';
@@ -17,7 +17,7 @@
 
         EventsService.getEventObject($stateParams.id)
           .then(function(eventObj) {
-            console.log(eventObj);
+            // console.log(eventObj);
             if (!eventObj.name) {
               $state.go('home');
             }
@@ -58,7 +58,7 @@
           // var pinToNum = parseInt(pin);
           if (this.editPin !== pin && this.editPin !== '8008135') {
             this.wrongPin = 'Incorrect PIN';
-            console.log("wrong pin", this.editPin, pin);
+            // console.log("wrong pin", this.editPin, pin);
           } else {
             this.validEditCheck = true;
           }
@@ -76,7 +76,7 @@
         };
 
         this.editEvent = function editEvent(game) {
-          console.log('edit game', game);
+          // console.log('edit game', game);
           game.adjHour = Number(game.hour);
           game.adjMinute = Number(game.minute);
           game.day = game.date.getDate();
@@ -97,13 +97,12 @@
               that.editAreYouSure = false;
               that.validEditCheck = false;
               // console.log('that.editAreYouSure', that.editAreYouSure);
-              console.log('in editEvent promise', ref);
+              // console.log('in editEvent promise', ref);
               $state.transitionTo($state.current, $stateParams, {
                 reload: true,
                 inherit: false,
                 notify: true
               });
-              console.log('reloaded');
             })
             .catch(function(err) {
               console.log('catch error', err);
@@ -112,11 +111,11 @@
         };
 
         this.deleteEvent = function deleteEvent(gameId, pin) {
-          console.log(pin);
+          // console.log(pin);
 
           return EventsService.deleteEventObject(gameId)
             .then(function(ref) {
-              console.log('in deleteEvent promise', ref);
+              // console.log('in deleteEvent promise', ref);
               that.deletePin = '';
               that.areYouSure = false;
               $state.go('home');
