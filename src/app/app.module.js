@@ -1,4 +1,5 @@
 (function() {
+  console.log('Just testing console');
     'use strict';
 
   angular
