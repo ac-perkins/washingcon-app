@@ -10,7 +10,7 @@
 
       this.singleGameEvents = EventsService.singleGameEvents;
       var that = this;
-      this.newEvent = {daySelect: '2017/9/9'};
+      this.newEvent = {daySelect: '2018/9/8'};
       this.now = new Date(Date.now());
       if (this.now.getHours() > 12) {
         this.newEvent.hour = JSON.stringify(this.now.getHours() - 12);
