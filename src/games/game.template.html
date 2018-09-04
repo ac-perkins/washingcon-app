@@ -18,7 +18,7 @@
 
 <div ng-show="gc.editAreYouSure" class="ask-delete">
   <div class="modal-bg-edit"></div>
-  <form class="delete-event" ng-show="gc.editAreYouSure" action="" ng-submit="gc.editCheck(gc.game.$id, gc.game.pin)">
+  <form class="delete-event" ng-show="gc.editAreYouSure" action="" ng-submit="gc.editCheck($event, gc.game.$id, gc.game.pin)">
 
     <input type='tel' ng-model='gc.editPin' placeholder="Enter PIN">
     <p ng-show='gc.wrongPin'>{{gc.wrongPin}}</p>
